@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, use, useEffect } from "react";
+import { useState, useMemo, use, useEffect, useRef } from "react";
 import Link from "next/link";
 import confetti from "canvas-confetti";
 import { useIeltsStore } from "@/lib/store/useIeltsStore";
@@ -41,11 +41,18 @@ export default function PracticeSessionPage({ params }: PageProps) {
     recordAttempt,
     completedExerciseIds,
     markExerciseCompleted,
+    markPackCompleted,
+    isPackCompleted,
     setPackProgress,
+    getPackProgress,
+    setActivePack,
+    getActivePack,
   } = useIeltsStore();
   const { recordMistake, resolveMistake } = useMistakesStore();
 
   const [mounted, setMounted] = useState(false);
+  const hasInitializedRef = useRef(false);
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -83,30 +90,104 @@ export default function PracticeSessionPage({ params }: PageProps) {
     return SYNONYM_EXERCISES.slice(s, e);
   }, [trackId, selectedPackId]);
 
-  const currentWritingExercises = useMemo(() => {
-    if (trackId === "writing-spelling") return activeSpellingExercises;
-    if (trackId === "writing-synonyms") return activeSynonymExercises;
-    return [];
-  }, [trackId, activeSpellingExercises, activeSynonymExercises]);
-
-  // When pack changes or on initial load: automatically resume from the first uncompleted word
-  useEffect(() => {
-    if (!mounted) return;
-    if (trackId !== "writing-spelling" && trackId !== "writing-synonyms") return;
-    if (currentWritingExercises.length === 0) return;
-
-    const firstUnfinishedIdx = currentWritingExercises.findIndex(
-      (ex) => !completedExerciseIds.includes(ex.id)
-    );
-
-    if (firstUnfinishedIdx >= 0) {
-      setQuestionIndex(firstUnfinishedIdx);
-    } else {
-      setQuestionIndex(0);
-    }
+  // Helper to switch pack and immediately resume its first unfinished / saved question
+  const handleSelectPack = (packId: string) => {
+    setSelectedPackId(packId);
+    setActivePack(trackId, packId);
     setStatus("idle");
     setSelectedStringAnswer("");
-  }, [selectedPackId, trackId, mounted, completedExerciseIds, currentWritingExercises]);
+    setIsCompleted(false);
+
+    const allExercises = trackId === "writing-spelling" ? SPELLING_EXERCISES : SYNONYM_EXERCISES;
+    let packWords = allExercises;
+    if (packId !== "all") {
+      const packDef = SPELLING_PACKS.find((p) => p.id === packId);
+      if (packDef) {
+        const s = packDef.startIndex ?? packDef.start;
+        const e = packDef.endIndex ?? packDef.end;
+        packWords = allExercises.slice(s, e);
+      }
+    }
+
+    const savedQuestionIdx = getPackProgress(trackId, packId);
+    if (
+      savedQuestionIdx > 0 &&
+      savedQuestionIdx < packWords.length &&
+      !completedExerciseIds.includes(packWords[savedQuestionIdx]?.id)
+    ) {
+      setQuestionIndex(savedQuestionIdx);
+    } else {
+      const firstUnfinished = packWords.findIndex((w) => !completedExerciseIds.includes(w.id));
+      setQuestionIndex(firstUnfinished >= 0 ? firstUnfinished : 0);
+    }
+  };
+
+  // Helper to jump to a specific word inside current pack
+  const handleJumpToWord = (idx: number) => {
+    setQuestionIndex(idx);
+    setStatus("idle");
+    setSelectedStringAnswer("");
+    if (trackId === "writing-spelling" || trackId === "writing-synonyms") {
+      setPackProgress(trackId, selectedPackId, idx);
+    }
+  };
+
+  // Auto-resume on initial load: choose the last active pack, or if completed, auto-advance to next pack!
+  useEffect(() => {
+    if (!mounted || hasInitializedRef.current) return;
+    if (trackId !== "writing-spelling" && trackId !== "writing-synonyms") return;
+
+    hasInitializedRef.current = true;
+
+    const allExercises = trackId === "writing-spelling" ? SPELLING_EXERCISES : SYNONYM_EXERCISES;
+
+    const checkPackDone = (pId: string) => {
+      if (isPackCompleted(trackId, pId)) return true;
+      const packDef = SPELLING_PACKS.find((p) => p.id === pId);
+      if (!packDef) return false;
+      const s = packDef.startIndex ?? packDef.start;
+      const e = packDef.endIndex ?? packDef.end;
+      const words = allExercises.slice(s, e);
+      return words.length > 0 && words.every((w) => completedExerciseIds.includes(w.id));
+    };
+
+    const savedPack = getActivePack(trackId);
+    let chosenPackId = savedPack || "pack-1";
+
+    // If the saved pack is 100% completed, auto-advance to the first unfinished pack!
+    if (chosenPackId !== "all" && checkPackDone(chosenPackId)) {
+      const unfinishedPack = SPELLING_PACKS.find((p) => !checkPackDone(p.id));
+      if (unfinishedPack) {
+        chosenPackId = unfinishedPack.id;
+      }
+    }
+
+    setSelectedPackId(chosenPackId);
+    setActivePack(trackId, chosenPackId);
+
+    // Now resolve starting word within chosen pack
+    let packWords = allExercises;
+    if (chosenPackId !== "all") {
+      const packDef = SPELLING_PACKS.find((p) => p.id === chosenPackId);
+      if (packDef) {
+        const s = packDef.startIndex ?? packDef.start;
+        const e = packDef.endIndex ?? packDef.end;
+        packWords = allExercises.slice(s, e);
+      }
+    }
+
+    const savedQuestionIdx = getPackProgress(trackId, chosenPackId);
+    if (
+      savedQuestionIdx > 0 &&
+      savedQuestionIdx < packWords.length &&
+      !completedExerciseIds.includes(packWords[savedQuestionIdx]?.id)
+    ) {
+      setQuestionIndex(savedQuestionIdx);
+    } else {
+      const firstUnfinished = packWords.findIndex((w) => !completedExerciseIds.includes(w.id));
+      setQuestionIndex(firstUnfinished >= 0 ? firstUnfinished : 0);
+    }
+  }, [mounted, trackId]);
 
   // Resolve Curriculum Data for Track
   const readingPassage = getReadingPassageById(trackId);
@@ -268,13 +349,25 @@ export default function PracticeSessionPage({ params }: PageProps) {
     setGrammarTiles([]);
 
     if (questionIndex + 1 < totalSteps) {
-      setQuestionIndex(questionIndex + 1);
+      const nextIdx = questionIndex + 1;
+      setQuestionIndex(nextIdx);
       if (trackId === "writing-spelling" || trackId === "writing-synonyms") {
-        setPackProgress(trackId, selectedPackId, questionIndex + 1);
+        setPackProgress(trackId, selectedPackId, nextIdx);
       }
     } else {
       if (trackId === "writing-spelling" || trackId === "writing-synonyms") {
+        markPackCompleted(trackId, selectedPackId);
         setPackProgress(trackId, selectedPackId, totalSteps);
+
+        // Advance saved active pack to the next pack so next visit starts at next pack!
+        if (selectedPackId !== "all") {
+          const currentPackIdx = SPELLING_PACKS.findIndex((p) => p.id === selectedPackId);
+          if (currentPackIdx >= 0 && currentPackIdx + 1 < SPELLING_PACKS.length) {
+            const nextPack = SPELLING_PACKS[currentPackIdx + 1];
+            setActivePack(trackId, nextPack.id);
+            setPackProgress(trackId, nextPack.id, 0);
+          }
+        }
       }
       // Completed entire drill!
       triggerVictoryCelebration();
@@ -398,10 +491,21 @@ export default function PracticeSessionPage({ params }: PageProps) {
             </div>
 
             <h2 className="mt-4 text-2xl sm:text-3xl font-black text-gray-900">
-              Lesson Complete!
+              {(() => {
+                if (trackId === "writing-spelling" || trackId === "writing-synonyms") {
+                  const currentPackObj = SPELLING_PACKS.find((p) => p.id === selectedPackId);
+                  return currentPackObj ? `${currentPackObj.name.split(":")[0]} Tamamlandı!` : "Dərs Tamamlandı!";
+                }
+                return "Lesson Complete!";
+              })()}
             </h2>
             <p className="mt-1 text-sm font-semibold text-gray-500">
-              You just sharpened your authentic Cambridge exam reflexes.
+              {(() => {
+                if (trackId === "writing-spelling" || trackId === "writing-synonyms") {
+                  return "Bütün sözlər yadda saxlanıldı. Növbəti dəfə avtomatik qaldığınız yerdən davam edəcəksiniz.";
+                }
+                return "You just sharpened your authentic Cambridge exam reflexes.";
+              })()}
             </p>
 
             <div className="mt-6 grid grid-cols-2 gap-3">
@@ -415,18 +519,38 @@ export default function PracticeSessionPage({ params }: PageProps) {
               </div>
               <div className="rounded-2xl bg-green-50 p-4 border border-green-200">
                 <span className="text-[11px] font-black uppercase tracking-wider text-green-700">
-                  Cambridge Mode
+                  Status
                 </span>
                 <div className="text-lg font-black text-green-700 mt-0.5">
-                  Mastered
+                  Tamamlandı ✓
                 </div>
               </div>
             </div>
 
             <div className="mt-8 flex flex-col gap-3">
+              {/* If there is a next pack, show prominent Next Pack button! */}
+              {(() => {
+                if ((trackId === "writing-spelling" || trackId === "writing-synonyms") && selectedPackId !== "all") {
+                  const currentPackIdx = SPELLING_PACKS.findIndex((p) => p.id === selectedPackId);
+                  if (currentPackIdx >= 0 && currentPackIdx + 1 < SPELLING_PACKS.length) {
+                    const nextPack = SPELLING_PACKS[currentPackIdx + 1];
+                    return (
+                      <button
+                        onClick={() => handleSelectPack(nextPack.id)}
+                        className="btn-3d flex items-center justify-center gap-2 rounded-2xl bg-lingo-green py-4 text-base font-black uppercase text-white shadow-lingo-green hover:bg-lingo-green-dark"
+                      >
+                        <span>Növbəti: {nextPack.name.split(":")[0]}-ə Keç</span>
+                        <ArrowRight className="h-5 w-5" />
+                      </button>
+                    );
+                  }
+                }
+                return null;
+              })()}
+
               <Link
                 href="/learn"
-                className="btn-3d flex items-center justify-center gap-2 rounded-2xl bg-lingo-green py-4 text-base font-black uppercase text-white shadow-lingo-green hover:bg-lingo-green-dark"
+                className="btn-3d flex items-center justify-center gap-2 rounded-2xl bg-lingo-blue py-3.5 text-base font-black uppercase text-white shadow-lingo-blue hover:bg-lingo-blue-dark"
               >
                 <span>Continue on Skill Tree</span>
                 <ArrowRight className="h-5 w-5" />
@@ -436,11 +560,14 @@ export default function PracticeSessionPage({ params }: PageProps) {
                   setIsCompleted(false);
                   setQuestionIndex(0);
                   setStatus("idle");
+                  if (trackId === "writing-spelling" || trackId === "writing-synonyms") {
+                    setPackProgress(trackId, selectedPackId, 0);
+                  }
                 }}
                 className="btn-3d flex items-center justify-center gap-2 rounded-2xl border-2 border-gray-200 bg-white py-3 text-sm font-bold text-gray-700 hover:bg-gray-50 shadow-lingo-gray"
               >
                 <RotateCcw className="h-4 w-4" />
-                <span>Practice Again</span>
+                <span>Bu Pack-i Təkrarla</span>
               </button>
             </div>
           </div>
@@ -491,7 +618,7 @@ export default function PracticeSessionPage({ params }: PageProps) {
                       const doneCount = mounted
                         ? packWords.filter((w) => completedExerciseIds.includes(w.id)).length
                         : 0;
-                      const isAllDone = doneCount === packWords.length && packWords.length > 0;
+                      const isAllDone = isPackCompleted(trackId, pack.id) || (doneCount === packWords.length && packWords.length > 0);
                       const isSelected = selectedPackId === pack.id;
 
                       return (
@@ -500,7 +627,7 @@ export default function PracticeSessionPage({ params }: PageProps) {
                           type="button"
                           onClick={() => {
                             if (selectedPackId !== pack.id) {
-                              setSelectedPackId(pack.id);
+                              handleSelectPack(pack.id);
                             }
                           }}
                           className={`btn-3d flex items-center gap-1.5 whitespace-nowrap rounded-xl px-3 py-1.5 text-xs font-bold transition-all ${
@@ -535,7 +662,7 @@ export default function PracticeSessionPage({ params }: PageProps) {
                       type="button"
                       onClick={() => {
                         if (selectedPackId !== "all") {
-                          setSelectedPackId("all");
+                          handleSelectPack("all");
                         }
                       }}
                       className={`btn-3d flex items-center gap-1.5 whitespace-nowrap rounded-xl px-3 py-1.5 text-xs font-bold transition-all ${
@@ -583,11 +710,7 @@ export default function PracticeSessionPage({ params }: PageProps) {
                           <button
                             key={ex.id}
                             type="button"
-                            onClick={() => {
-                              setQuestionIndex(idx);
-                              setStatus("idle");
-                              setSelectedStringAnswer("");
-                            }}
+                            onClick={() => handleJumpToWord(idx)}
                             className={`flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-lg text-xs font-black transition-all ${
                               isCurrent
                                 ? "border-2 border-lingo-blue bg-lingo-blue text-white shadow-sm ring-2 ring-lingo-blue/20"
@@ -621,11 +744,7 @@ export default function PracticeSessionPage({ params }: PageProps) {
                           </span>
                           <button
                             type="button"
-                            onClick={() => {
-                              setQuestionIndex(firstUnfinished);
-                              setStatus("idle");
-                              setSelectedStringAnswer("");
-                            }}
+                            onClick={() => handleJumpToWord(firstUnfinished)}
                             className="font-bold text-amber-900 underline hover:text-amber-950 flex items-center gap-1"
                           >
                             <span>Qaldığınız yerə keç (Söz {firstUnfinished + 1})</span>
@@ -682,7 +801,7 @@ export default function PracticeSessionPage({ params }: PageProps) {
                       const doneCount = mounted
                         ? packWords.filter((w) => completedExerciseIds.includes(w.id)).length
                         : 0;
-                      const isAllDone = doneCount === packWords.length && packWords.length > 0;
+                      const isAllDone = isPackCompleted(trackId, pack.id) || (doneCount === packWords.length && packWords.length > 0);
                       const isSelected = selectedPackId === pack.id;
 
                       return (
@@ -691,7 +810,7 @@ export default function PracticeSessionPage({ params }: PageProps) {
                           type="button"
                           onClick={() => {
                             if (selectedPackId !== pack.id) {
-                              setSelectedPackId(pack.id);
+                              handleSelectPack(pack.id);
                             }
                           }}
                           className={`btn-3d flex items-center gap-1.5 whitespace-nowrap rounded-xl px-3 py-1.5 text-xs font-bold transition-all ${
@@ -726,7 +845,7 @@ export default function PracticeSessionPage({ params }: PageProps) {
                       type="button"
                       onClick={() => {
                         if (selectedPackId !== "all") {
-                          setSelectedPackId("all");
+                          handleSelectPack("all");
                         }
                       }}
                       className={`btn-3d flex items-center gap-1.5 whitespace-nowrap rounded-xl px-3 py-1.5 text-xs font-bold transition-all ${
@@ -774,11 +893,7 @@ export default function PracticeSessionPage({ params }: PageProps) {
                           <button
                             key={ex.id}
                             type="button"
-                            onClick={() => {
-                              setQuestionIndex(idx);
-                              setStatus("idle");
-                              setSelectedStringAnswer("");
-                            }}
+                            onClick={() => handleJumpToWord(idx)}
                             className={`flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-lg text-xs font-black transition-all ${
                               isCurrent
                                 ? "border-2 border-purple-600 bg-purple-600 text-white shadow-sm ring-2 ring-purple-200"
@@ -812,11 +927,7 @@ export default function PracticeSessionPage({ params }: PageProps) {
                           </span>
                           <button
                             type="button"
-                            onClick={() => {
-                              setQuestionIndex(firstUnfinished);
-                              setStatus("idle");
-                              setSelectedStringAnswer("");
-                            }}
+                            onClick={() => handleJumpToWord(firstUnfinished)}
                             className="font-bold text-purple-900 underline hover:text-purple-950 flex items-center gap-1"
                           >
                             <span>Qaldığınız yerə keç (Söz {firstUnfinished + 1})</span>

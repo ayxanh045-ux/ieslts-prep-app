@@ -8,7 +8,9 @@ interface IeltsStoreState {
   xp: number;
   completedTrackIds: string[];
   completedExerciseIds: string[];
+  completedPackIds: string[];
   lastPackProgress: { [key: string]: number };
+  lastActivePack: { [trackId: string]: string };
   moduleAccuracy: {
     reading: { correct: number; total: number };
     writing: { correct: number; total: number };
@@ -24,8 +26,12 @@ interface IeltsStoreState {
   isTrackCompleted: (trackId: string) => boolean;
   markExerciseCompleted: (exerciseId: string) => void;
   isExerciseCompleted: (exerciseId: string) => boolean;
+  markPackCompleted: (trackId: string, packId: string) => void;
+  isPackCompleted: (trackId: string, packId: string) => boolean;
   setPackProgress: (trackId: string, packId: string, questionIndex: number) => void;
   getPackProgress: (trackId: string, packId: string) => number;
+  setActivePack: (trackId: string, packId: string) => void;
+  getActivePack: (trackId: string) => string | undefined;
 }
 
 export const useIeltsStore = create<IeltsStoreState>()(
@@ -36,7 +42,9 @@ export const useIeltsStore = create<IeltsStoreState>()(
       xp: 420,
       completedTrackIds: ["reading-1"],
       completedExerciseIds: [],
+      completedPackIds: [],
       lastPackProgress: {},
+      lastActivePack: {},
       moduleAccuracy: {
         reading: { correct: 9, total: 10 },
         writing: { correct: 14, total: 16 },
@@ -139,6 +147,35 @@ export const useIeltsStore = create<IeltsStoreState>()(
       getPackProgress: (trackId, packId) => {
         const progressMap = get().lastPackProgress || {};
         return progressMap[`${trackId}:${packId}`] ?? 0;
+      },
+
+      markPackCompleted: (trackId, packId) => {
+        const key = `${trackId}:${packId}`;
+        set((state) => {
+          const list = Array.isArray(state.completedPackIds) ? state.completedPackIds : [];
+          if (list.includes(key)) return state;
+          return { completedPackIds: [...list, key] };
+        });
+      },
+
+      isPackCompleted: (trackId, packId) => {
+        const key = `${trackId}:${packId}`;
+        const list = get().completedPackIds;
+        return Array.isArray(list) ? list.includes(key) : false;
+      },
+
+      setActivePack: (trackId, packId) => {
+        set((state) => ({
+          lastActivePack: {
+            ...(state.lastActivePack || {}),
+            [trackId]: packId,
+          },
+        }));
+      },
+
+      getActivePack: (trackId) => {
+        const map = get().lastActivePack || {};
+        return map[trackId];
       },
     }),
     {
