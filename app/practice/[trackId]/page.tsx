@@ -108,21 +108,6 @@ export default function PracticeSessionPage({ params }: PageProps) {
     setSelectedStringAnswer("");
   }, [selectedPackId, trackId, mounted, completedExerciseIds, currentWritingExercises]);
 
-  if (!track) {
-    return (
-      <div className="flex min-h-[60vh] flex-col items-center justify-center p-6 text-center">
-        <h2 className="text-2xl font-black text-gray-800">Track Not Found</h2>
-        <p className="text-sm text-gray-500 mt-2">The requested practice drill does not exist.</p>
-        <Link
-          href="/learn"
-          className="btn-3d mt-4 rounded-xl bg-lingo-blue px-6 py-2.5 text-sm font-bold text-white shadow-lingo-blue"
-        >
-          Return to Skill Tree
-        </Link>
-      </div>
-    );
-  }
-
   // Resolve Curriculum Data for Track
   const readingPassage = getReadingPassageById(trackId);
   const listeningChunk = getListeningChunkById(trackId);
@@ -217,7 +202,9 @@ export default function PracticeSessionPage({ params }: PageProps) {
       isCorrect = normalizedUser === normalizedCorrect || !!matchAcceptable;
     }
 
-    recordAttempt(track.module, isCorrect);
+    if (track) {
+      recordAttempt(track.module, isCorrect);
+    }
 
     if (isCorrect) {
       soundEngine.playCorrect();
@@ -298,7 +285,9 @@ export default function PracticeSessionPage({ params }: PageProps) {
   const triggerVictoryCelebration = () => {
     setIsCompleted(true);
     soundEngine.playFanfare();
-    completeTrack(track.id, track.module, track.xpReward);
+    if (track) {
+      completeTrack(track.id, track.module, track.xpReward);
+    }
 
     // Canvas Confetti blast
     if (typeof window !== "undefined") {
@@ -326,6 +315,41 @@ export default function PracticeSessionPage({ params }: PageProps) {
   } else if (listeningChunk) {
     const q = listeningChunk.questions[questionIndex];
     canCheck = !!listeningAnswers[q.id]?.trim();
+  }
+
+  // Global Enter Key Handler for seamless keyboard practice:
+  // If status is idle & canCheck -> Check Answer
+  // If status is correct/incorrect -> Continue to next question
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Enter") {
+        if (status === "idle" && canCheck) {
+          e.preventDefault();
+          handleCheckAnswer();
+        } else if (status !== "idle" && !isCompleted) {
+          e.preventDefault();
+          handleContinue();
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [status, canCheck, isCompleted, questionIndex, selectedStringAnswer, grammarTiles, listeningAnswers]);
+
+  if (!track) {
+    return (
+      <div className="flex min-h-[60vh] flex-col items-center justify-center p-6 text-center">
+        <h2 className="text-2xl font-black text-gray-800">Track Not Found</h2>
+        <p className="text-sm text-gray-500 mt-2">The requested practice drill does not exist.</p>
+        <Link
+          href="/learn"
+          className="btn-3d mt-4 rounded-xl bg-lingo-blue px-6 py-2.5 text-sm font-bold text-white shadow-lingo-blue"
+        >
+          Return to Skill Tree
+        </Link>
+      </div>
+    );
   }
 
   return (
@@ -619,6 +643,7 @@ export default function PracticeSessionPage({ params }: PageProps) {
                   userAnswer={selectedStringAnswer}
                   onAnswerChange={(val) => setSelectedStringAnswer(val)}
                   status={status}
+                  onSubmitAnswer={handleCheckAnswer}
                 />
               </div>
             )}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { SpellingExercise } from "@/types/curriculum";
 import { soundEngine } from "@/lib/audio/sound-effects";
 import { Volume2, Bookmark, BookmarkCheck, Eye, EyeOff } from "lucide-react";
@@ -11,6 +11,7 @@ interface SpellingInputProps {
   userAnswer: string;
   onAnswerChange: (val: string) => void;
   status: "idle" | "correct" | "incorrect";
+  onSubmitAnswer?: () => void;
 }
 
 export function SpellingInput({
@@ -18,15 +19,36 @@ export function SpellingInput({
   userAnswer,
   onAnswerChange,
   status,
+  onSubmitAnswer,
 }: SpellingInputProps) {
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [showHint, setShowHint] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  // Reset hint visibility whenever a new word is loaded
+  // When a new word loads: reset hint, focus input, and automatically speak word aloud
   useEffect(() => {
     setShowHint(false);
-  }, [exercise.id]);
+
+    // Auto-focus input for rapid typing
+    if (status === "idle") {
+      inputRef.current?.focus();
+    }
+
+    // Auto-speak word aloud when moving to next question
+    const timer = setTimeout(() => {
+      soundEngine.speak(exercise.targetWord, "British");
+    }, 180);
+
+    return () => clearTimeout(timer);
+  }, [exercise.id, exercise.targetWord]);
+
+  // Focus input whenever status resets to idle
+  useEffect(() => {
+    if (status === "idle") {
+      inputRef.current?.focus();
+    }
+  }, [status]);
 
   const { isWordSaved, saveWord, removeWord, savedWords } = useVocabularyStore();
   const saved = isWordSaved(exercise.targetWord);
@@ -219,11 +241,21 @@ export function SpellingInput({
 
         <div className="relative">
           <input
+            ref={inputRef}
             type="text"
             disabled={status !== "idle"}
             value={userAnswer}
             onChange={(e) => onAnswerChange(e.target.value)}
-            placeholder="Type word here..."
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                e.stopPropagation();
+                if (status === "idle" && userAnswer.trim().length > 0 && onSubmitAnswer) {
+                  onSubmitAnswer();
+                }
+              }
+            }}
+            placeholder="Type word here (press Enter to check)..."
             autoCapitalize="none"
             autoCorrect="off"
             spellCheck="false"

@@ -197,6 +197,26 @@ export default function MistakesPage() {
     }
   };
 
+  // Global Enter Key Handler for speedy mistakes practice
+  useEffect(() => {
+    if (!isPracticing || isSessionCompleted) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Enter") {
+        if (status === "idle" && userAnswer.trim().length > 0) {
+          e.preventDefault();
+          handleCheckAnswer();
+        } else if (status !== "idle") {
+          e.preventDefault();
+          handleContinue();
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isPracticing, isSessionCompleted, status, userAnswer, currentIdx]);
+
   // ================= RENDER PRACTICE MODE =================
   if (isPracticing && currentMistake) {
     const progressPercent = Math.min(
@@ -301,6 +321,7 @@ export default function MistakesPage() {
                   userAnswer={userAnswer}
                   onAnswerChange={(val) => setUserAnswer(val)}
                   status={status}
+                  onSubmitAnswer={handleCheckAnswer}
                 />
               )}
 
