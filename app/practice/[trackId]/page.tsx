@@ -25,7 +25,7 @@ import { ParaphraseEditor } from "@/components/practice/ParaphraseEditor";
 import { AudioChunkPlayer } from "@/components/practice/AudioChunkPlayer";
 import { BottomResultTray } from "@/components/practice/BottomResultTray";
 
-import { X, Heart, Award, ArrowRight, RotateCcw, Check } from "lucide-react";
+import { X, Heart, Award, ArrowRight, RotateCcw, Check, Sparkles } from "lucide-react";
 
 interface PageProps {
   params: Promise<{ trackId: string }>;
@@ -62,6 +62,7 @@ export default function PracticeSessionPage({ params }: PageProps) {
   const [status, setStatus] = useState<"idle" | "correct" | "incorrect">("idle");
   const [isCompleted, setIsCompleted] = useState(false);
   const [selectedPackId, setSelectedPackId] = useState<string>("pack-1");
+  const [packTransitionToast, setPackTransitionToast] = useState<string | null>(null);
 
   // User Answer Inputs across types
   const [selectedStringAnswer, setSelectedStringAnswer] = useState("");
@@ -152,14 +153,12 @@ export default function PracticeSessionPage({ params }: PageProps) {
     };
 
     const savedPack = getActivePack(trackId);
-    let chosenPackId = savedPack || "pack-1";
+    let chosenPackId = savedPack;
 
-    // If the saved pack is 100% completed, auto-advance to the first unfinished pack!
-    if (chosenPackId !== "all" && checkPackDone(chosenPackId)) {
+    // If no saved pack or it's "all" or it's already completed, find the first unfinished pack in sequence!
+    if (!chosenPackId || chosenPackId === "all" || checkPackDone(chosenPackId)) {
       const unfinishedPack = SPELLING_PACKS.find((p) => !checkPackDone(p.id));
-      if (unfinishedPack) {
-        chosenPackId = unfinishedPack.id;
-      }
+      chosenPackId = unfinishedPack ? unfinishedPack.id : "pack-1";
     }
 
     setSelectedPackId(chosenPackId);
@@ -359,17 +358,38 @@ export default function PracticeSessionPage({ params }: PageProps) {
         markPackCompleted(trackId, selectedPackId);
         setPackProgress(trackId, selectedPackId, totalSteps);
 
-        // Advance saved active pack to the next pack so next visit starts at next pack!
+        // If there is a next pack in sequence, celebrate and automatically transition to it!
         if (selectedPackId !== "all") {
           const currentPackIdx = SPELLING_PACKS.findIndex((p) => p.id === selectedPackId);
           if (currentPackIdx >= 0 && currentPackIdx + 1 < SPELLING_PACKS.length) {
             const nextPack = SPELLING_PACKS[currentPackIdx + 1];
-            setActivePack(trackId, nextPack.id);
-            setPackProgress(trackId, nextPack.id, 0);
+
+            // Celebration sound and confetti
+            soundEngine.playFanfare();
+            if (typeof window !== "undefined") {
+              confetti({
+                particleCount: 85,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ["#58CC02", "#1CB0F6", "#FF9600", "#CE82FF"],
+              });
+            }
+            if (track) {
+              completeTrack(track.id, track.module, track.xpReward);
+            }
+
+            const currentPackName = SPELLING_PACKS[currentPackIdx].name.split(":")[0];
+            const nextPackName = nextPack.name.split(":")[0];
+            setPackTransitionToast(`🎉 Əla! ${currentPackName} tamamlandı. İndi ${nextPackName} başlayır!`);
+            setTimeout(() => setPackTransitionToast(null), 4500);
+
+            // Automatically switch to the next pack and resume from its first word!
+            handleSelectPack(nextPack.id);
+            return;
           }
         }
       }
-      // Completed entire drill!
+      // If no next pack exists (e.g. finished Pack 10 or 'all'), trigger full celebration!
       triggerVictoryCelebration();
     }
   };
@@ -483,6 +503,14 @@ export default function PracticeSessionPage({ params }: PageProps) {
 
       {/* MAIN EXERCISE BODY */}
       <main className="mx-auto w-full max-w-5xl px-4 pt-6 sm:px-6">
+        {/* Pack Auto-Transition Celebration Toast Banner */}
+        {packTransitionToast && (
+          <div className="mx-auto max-w-2xl mb-5 flex items-center justify-center gap-2.5 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 px-5 py-3 text-sm font-black text-white shadow-lg shadow-emerald-500/20 animate-in fade-in slide-in-from-top-4 duration-300">
+            <Sparkles className="h-5 w-5 text-amber-300 animate-spin" />
+            <span>{packTransitionToast}</span>
+          </div>
+        )}
+
         {/* If Completed, show Victory Card */}
         {isCompleted ? (
           <div className="mx-auto max-w-lg rounded-3xl border-2 border-lingo-green bg-white p-8 text-center shadow-xl">
