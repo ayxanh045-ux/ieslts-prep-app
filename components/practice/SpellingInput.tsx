@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { SpellingExercise } from "@/types/curriculum";
 import { soundEngine } from "@/lib/audio/sound-effects";
-import { Volume2, Bookmark, BookmarkCheck } from "lucide-react";
+import { Volume2, Bookmark, BookmarkCheck, Eye, EyeOff } from "lucide-react";
 import { useVocabularyStore } from "@/lib/store/useVocabularyStore";
 
 interface SpellingInputProps {
@@ -21,13 +21,20 @@ export function SpellingInput({
 }: SpellingInputProps) {
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [showHint, setShowHint] = useState(false);
+
+  // Reset hint visibility whenever a new word is loaded
+  useEffect(() => {
+    setShowHint(false);
+  }, [exercise.id]);
 
   const { isWordSaved, saveWord, removeWord, savedWords } = useVocabularyStore();
   const saved = isWordSaved(exercise.targetWord);
 
   const playAudio = () => {
     setIsPlayingAudio(true);
-    soundEngine.speak(exercise.audioPromptText, "British", () => {
+    // Speak only the target word itself, not the full context sentence
+    soundEngine.speak(exercise.targetWord, "British", () => {
       setIsPlayingAudio(false);
     });
   };
@@ -107,9 +114,20 @@ export function SpellingInput({
                   Click to Listen
                 </span>
                 {exercise.ipa && (
-                  <span className="font-mono text-xs font-bold text-gray-500">
-                    {exercise.ipa}
-                  </span>
+                  showHint ? (
+                    <span className="font-mono text-xs font-bold text-gray-600 bg-amber-100/60 px-2 py-0.5 rounded-md animate-in fade-in">
+                      {exercise.ipa}
+                    </span>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => setShowHint(true)}
+                      className="text-[11px] font-bold text-gray-400 hover:text-amber-800 bg-white/80 border border-amber-200/80 px-2 py-0.5 rounded-md transition-colors"
+                      title="Tələffüz transkripsiyasını göstər"
+                    >
+                      [Tələffüzü göstər]
+                    </button>
+                  )
                 )}
               </div>
               <p className="text-xs sm:text-sm text-gray-600 mt-0.5 leading-snug">
@@ -173,9 +191,9 @@ export function SpellingInput({
           )}
         </div>
 
-        {/* Cambridge Memory Rule if available */}
-        {exercise.cambridgeRule && (
-          <div className="rounded-xl bg-amber-100/60 px-3 py-1.5 text-xs font-semibold text-amber-900 border border-amber-200/60">
+        {/* Cambridge Memory Rule if available (Hidden by default to prevent giving away spelling) */}
+        {exercise.cambridgeRule && showHint && (
+          <div className="rounded-xl bg-amber-100/60 px-3 py-1.5 text-xs font-semibold text-amber-900 border border-amber-200/60 animate-in fade-in">
             <span className="font-black">Cambridge Rule: </span>
             {exercise.cambridgeRule}
           </div>
@@ -213,31 +231,57 @@ export function SpellingInput({
           />
         </div>
 
-        {/* Quick-select chips if user wants to spot the typo */}
-        <div className="mt-2">
-          <span className="text-xs font-bold text-gray-400 block mb-2">
-            Or select the correct variation:
+        {/* Hint & Variation Toggle */}
+        <div className="mt-1 flex items-center justify-between">
+          <button
+            type="button"
+            onClick={() => setShowHint((prev) => !prev)}
+            className="inline-flex items-center gap-1.5 rounded-xl border border-gray-200 bg-gray-50 hover:bg-amber-50 hover:border-amber-300 px-3 py-1.5 text-xs font-bold text-gray-600 hover:text-amber-900 transition-all"
+          >
+            {showHint ? (
+              <>
+                <EyeOff className="h-3.5 w-3.5 text-gray-500" />
+                <span>İpucu və Seçimləri Gizlət</span>
+              </>
+            ) : (
+              <>
+                <Eye className="h-3.5 w-3.5 text-amber-600" />
+                <span>Köməkçi Seçimləri və İpucunu Göstər</span>
+              </>
+            )}
+          </button>
+          <span className="text-[11px] text-gray-400">
+            {showHint ? "İpucu aktivdir" : "Kopya olmasın deyə gizlədilib"}
           </span>
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-            {choices.map((trapWord) => (
-              <button
-                key={trapWord}
-                disabled={status !== "idle"}
-                onClick={() => {
-                  soundEngine.playTileClick();
-                  onAnswerChange(trapWord);
-                }}
-                className={`btn-3d rounded-xl border-2 px-3 py-2 text-xs sm:text-sm font-bold transition-all ${
-                  userAnswer.toLowerCase() === trapWord.toLowerCase()
-                    ? "border-lingo-blue bg-lingo-blue-light/60 text-lingo-blue-dark shadow-lingo-blue"
-                    : "border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:bg-gray-50 shadow-lingo-gray"
-                }`}
-              >
-                {trapWord}
-              </button>
-            ))}
-          </div>
         </div>
+
+        {/* Quick-select chips if user explicitly wants hints */}
+        {showHint && (
+          <div className="mt-1 animate-in fade-in slide-in-from-top-1 duration-200">
+            <span className="text-xs font-bold text-gray-400 block mb-2">
+              Seçimlərdən düzgün variantı tapın:
+            </span>
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+              {choices.map((trapWord) => (
+                <button
+                  key={trapWord}
+                  disabled={status !== "idle"}
+                  onClick={() => {
+                    soundEngine.playTileClick();
+                    onAnswerChange(trapWord);
+                  }}
+                  className={`btn-3d rounded-xl border-2 px-3 py-2 text-xs sm:text-sm font-bold transition-all ${
+                    userAnswer.toLowerCase() === trapWord.toLowerCase()
+                      ? "border-lingo-blue bg-lingo-blue-light/60 text-lingo-blue-dark shadow-lingo-blue"
+                      : "border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:bg-gray-50 shadow-lingo-gray"
+                  }`}
+                >
+                  {trapWord}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
