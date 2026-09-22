@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useIeltsStore } from "@/lib/store/useIeltsStore";
 import { soundEngine } from "@/lib/audio/sound-effects";
 import { Flame, Zap, Award, Volume2, VolumeX, BookOpen, Calculator, FileCheck, Bookmark, AlertTriangle } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useVocabularyStore } from "@/lib/store/useVocabularyStore";
 import { useMistakesStore } from "@/lib/store/useMistakesStore";
 
@@ -13,12 +13,22 @@ export function Navbar() {
   const pathname = usePathname();
   const { streak, xp, soundEnabled, toggleSound, getEstimatedBand } = useIeltsStore();
   const savedWords = useVocabularyStore((s) => s.savedWords);
-  const unresolvedMistakes = useMistakesStore((s) => s.mistakes.filter((m) => !m.resolved));
+  const mistakes = useMistakesStore((s) => s.mistakes);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const unresolvedMistakesCount = useMemo(() => {
+    if (!mounted || !Array.isArray(mistakes)) return 0;
+    return mistakes.filter((m) => !m.resolved).length;
+  }, [mounted, mistakes]);
+
+  const savedWordsCount = useMemo(() => {
+    if (!mounted || !Array.isArray(savedWords)) return 0;
+    return savedWords.length;
+  }, [mounted, savedWords]);
 
   const handleSoundToggle = () => {
     soundEngine.setEnabled(!soundEnabled);
@@ -90,9 +100,9 @@ export function Navbar() {
           >
             <Bookmark className="h-4 w-4 text-amber-600" />
             <span>Vocabulary</span>
-            {mounted && savedWords.length > 0 && (
+            {savedWordsCount > 0 && (
               <span className="rounded-full bg-amber-100 px-1.5 py-0.2 text-[10px] font-black text-amber-800">
-                {savedWords.length}
+                {savedWordsCount}
               </span>
             )}
           </Link>
@@ -106,9 +116,9 @@ export function Navbar() {
           >
             <AlertTriangle className="h-4 w-4 text-rose-600" />
             <span>Mistakes</span>
-            {mounted && unresolvedMistakes.length > 0 && (
+            {unresolvedMistakesCount > 0 && (
               <span className="rounded-full bg-rose-500 px-1.5 py-0.2 text-[10px] font-black text-white animate-pulse">
-                {unresolvedMistakes.length}
+                {unresolvedMistakesCount}
               </span>
             )}
           </Link>
@@ -164,9 +174,9 @@ export function Navbar() {
             aria-label="Vocabulary"
           >
             <Bookmark className="h-4 w-4 text-amber-600" />
-            {mounted && savedWords.length > 0 && (
+            {savedWordsCount > 0 && (
               <span className="absolute -top-1.5 -right-1.5 flex h-4.5 min-w-4.5 px-1 items-center justify-center rounded-full bg-amber-600 text-[9px] font-black text-white shadow-sm">
-                {savedWords.length > 9 ? "9+" : savedWords.length}
+                {savedWordsCount > 9 ? "9+" : savedWordsCount}
               </span>
             )}
           </Link>
@@ -179,9 +189,9 @@ export function Navbar() {
             aria-label="Mistakes"
           >
             <AlertTriangle className="h-4 w-4 text-rose-600" />
-            {mounted && unresolvedMistakes.length > 0 && (
+            {unresolvedMistakesCount > 0 && (
               <span className="absolute -top-1.5 -right-1.5 flex h-4.5 min-w-4.5 px-1 items-center justify-center rounded-full bg-rose-500 text-[9px] font-black text-white shadow-sm animate-pulse">
-                {unresolvedMistakes.length > 9 ? "9+" : unresolvedMistakes.length}
+                {unresolvedMistakesCount > 9 ? "9+" : unresolvedMistakesCount}
               </span>
             )}
           </Link>

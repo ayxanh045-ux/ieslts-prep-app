@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 export interface MistakeItem {
   id: string; // e.g. "spell-500-1" or "syn-500-1"
@@ -47,12 +47,13 @@ export const useMistakesStore = create<MistakesStoreState>()(
 
       recordMistake: (item) => {
         set((state) => {
-          const existingIndex = state.mistakes.findIndex(
+          const currentMistakes = Array.isArray(state.mistakes) ? state.mistakes : [];
+          const existingIndex = currentMistakes.findIndex(
             (m) => m.id === item.id || m.targetWord.toLowerCase() === item.targetWord.toLowerCase()
           );
 
           if (existingIndex >= 0) {
-            const updated = [...state.mistakes];
+            const updated = [...currentMistakes];
             const prev = updated[existingIndex];
             updated[existingIndex] = {
               ...prev,
@@ -72,13 +73,13 @@ export const useMistakesStore = create<MistakesStoreState>()(
             resolved: false,
           };
 
-          return { mistakes: [newMistake, ...state.mistakes] };
+          return { mistakes: [newMistake, ...currentMistakes] };
         });
       },
 
       resolveMistake: (id) => {
         set((state) => ({
-          mistakes: state.mistakes.map((m) =>
+          mistakes: (Array.isArray(state.mistakes) ? state.mistakes : []).map((m) =>
             m.id === id ? { ...m, resolved: true } : m
           ),
         }));
@@ -86,13 +87,13 @@ export const useMistakesStore = create<MistakesStoreState>()(
 
       removeMistake: (id) => {
         set((state) => ({
-          mistakes: state.mistakes.filter((m) => m.id !== id),
+          mistakes: (Array.isArray(state.mistakes) ? state.mistakes : []).filter((m) => m.id !== id),
         }));
       },
 
       clearResolvedMistakes: () => {
         set((state) => ({
-          mistakes: state.mistakes.filter((m) => !m.resolved),
+          mistakes: (Array.isArray(state.mistakes) ? state.mistakes : []).filter((m) => !m.resolved),
         }));
       },
 
@@ -101,11 +102,13 @@ export const useMistakesStore = create<MistakesStoreState>()(
       },
 
       getUnresolvedCount: () => {
-        return get().mistakes.filter((m) => !m.resolved).length;
+        const list = get().mistakes;
+        return Array.isArray(list) ? list.filter((m) => !m.resolved).length : 0;
       },
     }),
     {
       name: "ielts-mistakes-storage",
+      storage: createJSONStorage(() => localStorage),
     }
   )
 );

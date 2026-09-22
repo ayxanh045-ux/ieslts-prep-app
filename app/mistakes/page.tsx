@@ -52,7 +52,10 @@ export default function MistakesPage() {
   const [status, setStatus] = useState<"idle" | "correct" | "incorrect">("idle");
   const [isSessionCompleted, setIsSessionCompleted] = useState(false);
 
-  const activeMistakesList = useMemo(() => (mounted ? mistakes : []), [mounted, mistakes]);
+  const activeMistakesList = useMemo(
+    () => (mounted && Array.isArray(mistakes) ? mistakes : []),
+    [mounted, mistakes]
+  );
 
   // Filtered mistakes for list view
   const filteredMistakes = useMemo(() => {
