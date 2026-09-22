@@ -4,6 +4,7 @@ import { useState, useMemo, use } from "react";
 import Link from "next/link";
 import confetti from "canvas-confetti";
 import { useIeltsStore } from "@/lib/store/useIeltsStore";
+import { useMistakesStore } from "@/lib/store/useMistakesStore";
 import { soundEngine } from "@/lib/audio/sound-effects";
 import {
   getTrackById,
@@ -38,6 +39,7 @@ export default function PracticeSessionPage({ params }: PageProps) {
 
   const track = getTrackById(trackId);
   const { completeTrack, recordAttempt } = useIeltsStore();
+  const { recordMistake, resolveMistake } = useMistakesStore();
 
   // Session Progression State
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -186,9 +188,53 @@ export default function PracticeSessionPage({ params }: PageProps) {
     if (isCorrect) {
       soundEngine.playCorrect();
       setStatus("correct");
+      if (trackId === "writing-spelling") {
+        const ex = activeSpellingExercises[questionIndex] || SPELLING_EXERCISES[0];
+        resolveMistake(ex.id);
+      } else if (trackId === "writing-synonyms") {
+        const ex = activeSynonymExercises[questionIndex] || SYNONYM_EXERCISES[0];
+        resolveMistake(ex.id);
+      }
     } else {
       soundEngine.playIncorrect();
       setStatus("incorrect");
+
+      // Record mistake for targeted practice later
+      if (trackId === "writing-spelling") {
+        const ex = activeSpellingExercises[questionIndex] || SPELLING_EXERCISES[0];
+        recordMistake({
+          id: ex.id,
+          type: "spelling",
+          targetWord: ex.targetWord,
+          azerbaijaniMeaning: ex.azerbaijaniMeaning,
+          definition: ex.definition,
+          userAnswer: selectedStringAnswer,
+          correctAnswer: ex.targetWord,
+          contextSentenceWithBlank: ex.contextSentenceWithBlank,
+          explanation: ex.explanation,
+          ipa: ex.ipa,
+          audioPromptText: ex.audioPromptText,
+          misspellingTraps: ex.misspellingTraps,
+          cambridgeRule: ex.cambridgeRule,
+          synonyms: ex.synonyms,
+        });
+      } else if (trackId === "writing-synonyms") {
+        const ex = activeSynonymExercises[questionIndex] || SYNONYM_EXERCISES[0];
+        recordMistake({
+          id: ex.id,
+          type: "synonym",
+          targetWord: ex.targetWord,
+          azerbaijaniMeaning: ex.azerbaijaniMeaning,
+          definition: ex.definition,
+          userAnswer: selectedStringAnswer,
+          correctAnswer: ex.correctAnswer,
+          contextSentenceWithBlank: ex.contextSentenceWithBlank,
+          explanation: ex.explanation,
+          commonOverusedWord: ex.commonOverusedWord,
+          correctSynonyms: ex.correctSynonyms,
+          options: ex.options,
+        });
+      }
     }
   };
 

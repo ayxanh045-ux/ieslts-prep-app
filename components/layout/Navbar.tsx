@@ -4,14 +4,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useIeltsStore } from "@/lib/store/useIeltsStore";
 import { soundEngine } from "@/lib/audio/sound-effects";
-import { Flame, Zap, Award, Volume2, VolumeX, BookOpen, Calculator, FileCheck, Bookmark } from "lucide-react";
+import { Flame, Zap, Award, Volume2, VolumeX, BookOpen, Calculator, FileCheck, Bookmark, AlertTriangle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useVocabularyStore } from "@/lib/store/useVocabularyStore";
+import { useMistakesStore } from "@/lib/store/useMistakesStore";
 
 export function Navbar() {
   const pathname = usePathname();
   const { streak, xp, soundEnabled, toggleSound, getEstimatedBand } = useIeltsStore();
   const savedWords = useVocabularyStore((s) => s.savedWords);
+  const unresolvedMistakes = useMistakesStore((s) => s.mistakes.filter((m) => !m.resolved));
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -95,6 +97,22 @@ export function Navbar() {
             )}
           </Link>
           <Link
+            href="/mistakes"
+            className={`flex items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-bold transition-all ${
+              pathname.startsWith("/mistakes")
+                ? "bg-rose-50 text-rose-700 font-black"
+                : "text-gray-600 hover:bg-gray-100"
+            }`}
+          >
+            <AlertTriangle className="h-4 w-4 text-rose-600" />
+            <span>Mistakes</span>
+            {mounted && unresolvedMistakes.length > 0 && (
+              <span className="rounded-full bg-rose-500 px-1.5 py-0.2 text-[10px] font-black text-white animate-pulse">
+                {unresolvedMistakes.length}
+              </span>
+            )}
+          </Link>
+          <Link
             href="/band-calculator"
             className={`flex items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-bold transition-all ${
               pathname.startsWith("/band-calculator")
@@ -149,6 +167,21 @@ export function Navbar() {
             {mounted && savedWords.length > 0 && (
               <span className="absolute -top-1.5 -right-1.5 flex h-4.5 min-w-4.5 px-1 items-center justify-center rounded-full bg-amber-600 text-[9px] font-black text-white shadow-sm">
                 {savedWords.length > 9 ? "9+" : savedWords.length}
+              </span>
+            )}
+          </Link>
+
+          {/* Mobile Mistakes Link */}
+          <Link
+            href="/mistakes"
+            className="flex md:hidden h-9 w-9 items-center justify-center rounded-xl border border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100 transition-colors shadow-sm relative"
+            title="Səhvlərim (Mistakes Bank)"
+            aria-label="Mistakes"
+          >
+            <AlertTriangle className="h-4 w-4 text-rose-600" />
+            {mounted && unresolvedMistakes.length > 0 && (
+              <span className="absolute -top-1.5 -right-1.5 flex h-4.5 min-w-4.5 px-1 items-center justify-center rounded-full bg-rose-500 text-[9px] font-black text-white shadow-sm animate-pulse">
+                {unresolvedMistakes.length > 9 ? "9+" : unresolvedMistakes.length}
               </span>
             )}
           </Link>
