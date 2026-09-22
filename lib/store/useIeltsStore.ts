@@ -7,6 +7,8 @@ interface IeltsStoreState {
   lastActiveDate: string | null;
   xp: number;
   completedTrackIds: string[];
+  completedExerciseIds: string[];
+  lastPackProgress: { [key: string]: number };
   moduleAccuracy: {
     reading: { correct: number; total: number };
     writing: { correct: number; total: number };
@@ -20,6 +22,10 @@ interface IeltsStoreState {
   toggleSound: () => void;
   getEstimatedBand: () => number;
   isTrackCompleted: (trackId: string) => boolean;
+  markExerciseCompleted: (exerciseId: string) => void;
+  isExerciseCompleted: (exerciseId: string) => boolean;
+  setPackProgress: (trackId: string, packId: string, questionIndex: number) => void;
+  getPackProgress: (trackId: string, packId: string) => number;
 }
 
 export const useIeltsStore = create<IeltsStoreState>()(
@@ -29,6 +35,8 @@ export const useIeltsStore = create<IeltsStoreState>()(
       lastActiveDate: new Date().toISOString().split("T")[0],
       xp: 420,
       completedTrackIds: ["reading-1"],
+      completedExerciseIds: [],
+      lastPackProgress: {},
       moduleAccuracy: {
         reading: { correct: 9, total: 10 },
         writing: { correct: 14, total: 16 },
@@ -102,7 +110,35 @@ export const useIeltsStore = create<IeltsStoreState>()(
       },
 
       isTrackCompleted: (trackId) => {
-        return get().completedTrackIds.includes(trackId);
+        const list = get().completedTrackIds;
+        return Array.isArray(list) ? list.includes(trackId) : false;
+      },
+
+      markExerciseCompleted: (exerciseId) => {
+        set((state) => {
+          const list = Array.isArray(state.completedExerciseIds) ? state.completedExerciseIds : [];
+          if (list.includes(exerciseId)) return state;
+          return { completedExerciseIds: [...list, exerciseId] };
+        });
+      },
+
+      isExerciseCompleted: (exerciseId) => {
+        const list = get().completedExerciseIds;
+        return Array.isArray(list) ? list.includes(exerciseId) : false;
+      },
+
+      setPackProgress: (trackId, packId, questionIndex) => {
+        set((state) => ({
+          lastPackProgress: {
+            ...(state.lastPackProgress || {}),
+            [`${trackId}:${packId}`]: questionIndex,
+          },
+        }));
+      },
+
+      getPackProgress: (trackId, packId) => {
+        const progressMap = get().lastPackProgress || {};
+        return progressMap[`${trackId}:${packId}`] ?? 0;
       },
     }),
     {

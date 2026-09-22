@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, use } from "react";
+import { useState, useMemo, use, useEffect } from "react";
 import Link from "next/link";
 import confetti from "canvas-confetti";
 import { useIeltsStore } from "@/lib/store/useIeltsStore";
@@ -25,8 +25,7 @@ import { ParaphraseEditor } from "@/components/practice/ParaphraseEditor";
 import { AudioChunkPlayer } from "@/components/practice/AudioChunkPlayer";
 import { BottomResultTray } from "@/components/practice/BottomResultTray";
 
-
-import { X, Heart, Award, ArrowRight, RotateCcw } from "lucide-react";
+import { X, Heart, Award, ArrowRight, RotateCcw, Check } from "lucide-react";
 
 interface PageProps {
   params: Promise<{ trackId: string }>;
@@ -36,10 +35,20 @@ export default function PracticeSessionPage({ params }: PageProps) {
   const resolvedParams = use(params);
   const trackId = resolvedParams.trackId;
 
-
   const track = getTrackById(trackId);
-  const { completeTrack, recordAttempt } = useIeltsStore();
+  const {
+    completeTrack,
+    recordAttempt,
+    completedExerciseIds,
+    markExerciseCompleted,
+    setPackProgress,
+  } = useIeltsStore();
   const { recordMistake, resolveMistake } = useMistakesStore();
+
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Session Progression State
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -73,6 +82,31 @@ export default function PracticeSessionPage({ params }: PageProps) {
     const e = pack.endIndex ?? pack.end;
     return SYNONYM_EXERCISES.slice(s, e);
   }, [trackId, selectedPackId]);
+
+  const currentWritingExercises = useMemo(() => {
+    if (trackId === "writing-spelling") return activeSpellingExercises;
+    if (trackId === "writing-synonyms") return activeSynonymExercises;
+    return [];
+  }, [trackId, activeSpellingExercises, activeSynonymExercises]);
+
+  // When pack changes or on initial load: automatically resume from the first uncompleted word
+  useEffect(() => {
+    if (!mounted) return;
+    if (trackId !== "writing-spelling" && trackId !== "writing-synonyms") return;
+    if (currentWritingExercises.length === 0) return;
+
+    const firstUnfinishedIdx = currentWritingExercises.findIndex(
+      (ex) => !completedExerciseIds.includes(ex.id)
+    );
+
+    if (firstUnfinishedIdx >= 0) {
+      setQuestionIndex(firstUnfinishedIdx);
+    } else {
+      setQuestionIndex(0);
+    }
+    setStatus("idle");
+    setSelectedStringAnswer("");
+  }, [selectedPackId, trackId, mounted, completedExerciseIds, currentWritingExercises]);
 
   if (!track) {
     return (
@@ -191,9 +225,11 @@ export default function PracticeSessionPage({ params }: PageProps) {
       if (trackId === "writing-spelling") {
         const ex = activeSpellingExercises[questionIndex] || SPELLING_EXERCISES[0];
         resolveMistake(ex.id);
+        markExerciseCompleted(ex.id);
       } else if (trackId === "writing-synonyms") {
         const ex = activeSynonymExercises[questionIndex] || SYNONYM_EXERCISES[0];
         resolveMistake(ex.id);
+        markExerciseCompleted(ex.id);
       }
     } else {
       soundEngine.playIncorrect();
@@ -246,7 +282,13 @@ export default function PracticeSessionPage({ params }: PageProps) {
 
     if (questionIndex + 1 < totalSteps) {
       setQuestionIndex(questionIndex + 1);
+      if (trackId === "writing-spelling" || trackId === "writing-synonyms") {
+        setPackProgress(trackId, selectedPackId, questionIndex + 1);
+      }
     } else {
+      if (trackId === "writing-spelling" || trackId === "writing-synonyms") {
+        setPackProgress(trackId, selectedPackId, totalSteps);
+      }
       // Completed entire drill!
       triggerVictoryCelebration();
     }
@@ -394,52 +436,82 @@ export default function PracticeSessionPage({ params }: PageProps) {
             {/* 2a. Writing: Spelling */}
             {trackId === "writing-spelling" && (
               <div className="space-y-4">
-                {/* Pack Selection Bar */}
-                <div className="mx-auto max-w-2xl rounded-2xl bg-white p-3.5 border-2 border-gray-200 shadow-sm">
-                  <div className="flex items-center justify-between gap-2 pb-2.5 mb-2.5 border-b border-gray-100">
+                {/* Pack Selection & Word Navigator Bar */}
+                <div className="mx-auto max-w-2xl rounded-2xl bg-white p-4 border-2 border-gray-200 shadow-sm space-y-3">
+                  {/* Pack Header & Progress */}
+                  <div className="flex items-center justify-between gap-2 pb-2 border-b border-gray-100">
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-black uppercase tracking-wider text-gray-700">
-                        500 Core IELTS Words
+                        {SPELLING_PACKS.find((p) => p.id === selectedPackId)?.name.split(":")[0] || "500 Core Words"}
                       </span>
-                      <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-black text-emerald-800">
-                        19 Packs (500 Words)
+                      <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-[10px] font-black text-emerald-800 flex items-center gap-1">
+                        <Check className="h-3 w-3" />
+                        <span>
+                          {mounted
+                            ? activeSpellingExercises.filter((w) => completedExerciseIds.includes(w.id)).length
+                            : 0} / {activeSpellingExercises.length} Tamamlanıb
+                        </span>
                       </span>
                     </div>
                     <span className="text-xs font-bold text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
-                      Word {questionIndex + 1} of {activeSpellingExercises.length}
+                      Söz {questionIndex + 1} / {activeSpellingExercises.length}
                     </span>
                   </div>
+
+                  {/* Horizontal Scrollable Packs with Tik (✓) */}
                   <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
-                    {SPELLING_PACKS.map((pack) => (
-                      <button
-                        key={pack.id}
-                        type="button"
-                        onClick={() => {
-                          if (selectedPackId !== pack.id) {
-                            setSelectedPackId(pack.id);
-                            setQuestionIndex(0);
-                            setStatus("idle");
-                            setSelectedStringAnswer("");
-                          }
-                        }}
-                        className={`btn-3d flex items-center gap-1.5 whitespace-nowrap rounded-xl px-3 py-1.5 text-xs font-bold transition-all ${
-                          selectedPackId === pack.id
-                            ? "bg-lingo-blue text-white shadow-lingo-blue border border-lingo-blue-dark"
-                            : "bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200"
-                        }`}
-                      >
-                        <span>{pack.icon}</span>
-                        <span>{pack.name.split(":")[0]}</span>
-                      </button>
-                    ))}
+                    {SPELLING_PACKS.map((pack) => {
+                      const s = pack.startIndex ?? pack.start;
+                      const e = pack.endIndex ?? pack.end;
+                      const packWords = SPELLING_EXERCISES.slice(s, e);
+                      const doneCount = mounted
+                        ? packWords.filter((w) => completedExerciseIds.includes(w.id)).length
+                        : 0;
+                      const isAllDone = doneCount === packWords.length && packWords.length > 0;
+                      const isSelected = selectedPackId === pack.id;
+
+                      return (
+                        <button
+                          key={pack.id}
+                          type="button"
+                          onClick={() => {
+                            if (selectedPackId !== pack.id) {
+                              setSelectedPackId(pack.id);
+                            }
+                          }}
+                          className={`btn-3d flex items-center gap-1.5 whitespace-nowrap rounded-xl px-3 py-1.5 text-xs font-bold transition-all ${
+                            isSelected
+                              ? "bg-lingo-blue text-white shadow-lingo-blue border border-lingo-blue-dark"
+                              : isAllDone
+                              ? "bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-300"
+                              : "bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200"
+                          }`}
+                        >
+                          <span>{pack.icon}</span>
+                          <span>{pack.name.split(":")[0]}</span>
+                          {isAllDone ? (
+                            <span className="flex h-4 w-4 items-center justify-center rounded-full bg-emerald-600 text-[10px] font-black text-white">
+                              ✓
+                            </span>
+                          ) : doneCount > 0 ? (
+                            <span
+                              className={`rounded-full px-1.5 py-0.2 text-[9px] font-black ${
+                                isSelected
+                                  ? "bg-white/20 text-white"
+                                  : "bg-emerald-100 text-emerald-800"
+                              }`}
+                            >
+                              {doneCount}/{packWords.length}
+                            </span>
+                          ) : null}
+                        </button>
+                      );
+                    })}
                     <button
                       type="button"
                       onClick={() => {
                         if (selectedPackId !== "all") {
                           setSelectedPackId("all");
-                          setQuestionIndex(0);
-                          setStatus("idle");
-                          setSelectedStringAnswer("");
                         }
                       }}
                       className={`btn-3d flex items-center gap-1.5 whitespace-nowrap rounded-xl px-3 py-1.5 text-xs font-bold transition-all ${
@@ -450,8 +522,96 @@ export default function PracticeSessionPage({ params }: PageProps) {
                     >
                       <span>🔥</span>
                       <span>All 500 Words</span>
+                      {mounted && (
+                        <span
+                          className={`rounded-full px-1.5 py-0.2 text-[9px] font-black ${
+                            selectedPackId === "all"
+                              ? "bg-white/20 text-white"
+                              : "bg-purple-100 text-purple-800"
+                          }`}
+                        >
+                          {SPELLING_EXERCISES.filter((w) => completedExerciseIds.includes(w.id)).length}/500
+                        </span>
+                      )}
                     </button>
                   </div>
+
+                  {/* Word Navigator (Pills with Checkmark ✓) */}
+                  <div className="pt-2 border-t border-gray-100">
+                    <div className="flex items-center justify-between gap-2 mb-1.5">
+                      <span className="text-[11px] font-bold text-gray-400">
+                        Pack daxilindəki sözlər:
+                      </span>
+                      {activeSpellingExercises[questionIndex] &&
+                        mounted &&
+                        completedExerciseIds.includes(activeSpellingExercises[questionIndex].id) && (
+                          <span className="inline-flex items-center gap-1 text-[11px] font-black text-emerald-600">
+                            <Check className="h-3 w-3" />
+                            <span>Bu söz tamamlanıb (✓)</span>
+                          </span>
+                        )}
+                    </div>
+                    <div className="flex items-center gap-1.5 overflow-x-auto py-1 no-scrollbar">
+                      {activeSpellingExercises.map((ex, idx) => {
+                        const isDone = mounted && completedExerciseIds.includes(ex.id);
+                        const isCurrent = idx === questionIndex;
+                        return (
+                          <button
+                            key={ex.id}
+                            type="button"
+                            onClick={() => {
+                              setQuestionIndex(idx);
+                              setStatus("idle");
+                              setSelectedStringAnswer("");
+                            }}
+                            className={`flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-lg text-xs font-black transition-all ${
+                              isCurrent
+                                ? "border-2 border-lingo-blue bg-lingo-blue text-white shadow-sm ring-2 ring-lingo-blue/20"
+                                : isDone
+                                ? "border border-emerald-300 bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
+                                : "border border-gray-200 bg-white text-gray-400 hover:bg-gray-50 hover:text-gray-700"
+                            }`}
+                            title={`Söz ${idx + 1}: ${ex.targetWord}${isDone ? " (Tamamlanıb ✓)" : ""}`}
+                          >
+                            {isDone ? "✓" : idx + 1}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Quick Jump to First Unfinished Word if user is viewing a completed one */}
+                  {(() => {
+                    const firstUnfinished = activeSpellingExercises.findIndex(
+                      (ex) => !completedExerciseIds.includes(ex.id)
+                    );
+                    const isCurDone =
+                      activeSpellingExercises[questionIndex] &&
+                      completedExerciseIds.includes(activeSpellingExercises[questionIndex].id);
+
+                    if (isCurDone && firstUnfinished >= 0 && firstUnfinished !== questionIndex) {
+                      return (
+                        <div className="flex items-center justify-between rounded-xl bg-amber-50 px-3 py-1.5 border border-amber-200 text-xs">
+                          <span className="text-amber-800 font-medium">
+                            Bu sözü artıq tamamlamısınız.
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setQuestionIndex(firstUnfinished);
+                              setStatus("idle");
+                              setSelectedStringAnswer("");
+                            }}
+                            className="font-bold text-amber-900 underline hover:text-amber-950 flex items-center gap-1"
+                          >
+                            <span>Qaldığınız yerə keç (Söz {firstUnfinished + 1})</span>
+                            <ArrowRight className="h-3 w-3" />
+                          </button>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })()}
                 </div>
 
                 <SpellingInput
@@ -466,52 +626,82 @@ export default function PracticeSessionPage({ params }: PageProps) {
             {/* 2b. Writing: Academic Synonyms (No Repetition) */}
             {trackId === "writing-synonyms" && (
               <div className="space-y-4">
-                {/* Pack Selection Bar */}
-                <div className="mx-auto max-w-2xl rounded-2xl bg-white p-3.5 border-2 border-gray-200 shadow-sm">
-                  <div className="flex items-center justify-between gap-2 pb-2.5 mb-2.5 border-b border-gray-100">
+                {/* Pack Selection & Word Navigator Bar */}
+                <div className="mx-auto max-w-2xl rounded-2xl bg-white p-4 border-2 border-gray-200 shadow-sm space-y-3">
+                  {/* Pack Header & Progress */}
+                  <div className="flex items-center justify-between gap-2 pb-2 border-b border-gray-100">
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-black uppercase tracking-wider text-purple-800">
-                        500 Academic Synonyms
+                        {SPELLING_PACKS.find((p) => p.id === selectedPackId)?.name.split(":")[0] || "500 Synonyms"}
                       </span>
-                      <span className="rounded-full bg-purple-100 px-2 py-0.5 text-[10px] font-black text-purple-800">
-                        19 Packs (500 Words)
+                      <span className="rounded-full bg-purple-100 px-2.5 py-0.5 text-[10px] font-black text-purple-800 flex items-center gap-1">
+                        <Check className="h-3 w-3" />
+                        <span>
+                          {mounted
+                            ? activeSynonymExercises.filter((w) => completedExerciseIds.includes(w.id)).length
+                            : 0} / {activeSynonymExercises.length} Tamamlanıb
+                        </span>
                       </span>
                     </div>
                     <span className="text-xs font-bold text-purple-800 bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-200">
-                      Word {questionIndex + 1} of {activeSynonymExercises.length}
+                      Söz {questionIndex + 1} / {activeSynonymExercises.length}
                     </span>
                   </div>
+
+                  {/* Horizontal Scrollable Packs with Tik (✓) */}
                   <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
-                    {SPELLING_PACKS.map((pack) => (
-                      <button
-                        key={pack.id}
-                        type="button"
-                        onClick={() => {
-                          if (selectedPackId !== pack.id) {
-                            setSelectedPackId(pack.id);
-                            setQuestionIndex(0);
-                            setStatus("idle");
-                            setSelectedStringAnswer("");
-                          }
-                        }}
-                        className={`btn-3d flex items-center gap-1.5 whitespace-nowrap rounded-xl px-3 py-1.5 text-xs font-bold transition-all ${
-                          selectedPackId === pack.id
-                            ? "bg-purple-600 text-white shadow-lingo-purple border border-purple-700"
-                            : "bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200"
-                        }`}
-                      >
-                        <span>{pack.icon}</span>
-                        <span>{pack.name.split(":")[0]}</span>
-                      </button>
-                    ))}
+                    {SPELLING_PACKS.map((pack) => {
+                      const s = pack.startIndex ?? pack.start;
+                      const e = pack.endIndex ?? pack.end;
+                      const packWords = SYNONYM_EXERCISES.slice(s, e);
+                      const doneCount = mounted
+                        ? packWords.filter((w) => completedExerciseIds.includes(w.id)).length
+                        : 0;
+                      const isAllDone = doneCount === packWords.length && packWords.length > 0;
+                      const isSelected = selectedPackId === pack.id;
+
+                      return (
+                        <button
+                          key={pack.id}
+                          type="button"
+                          onClick={() => {
+                            if (selectedPackId !== pack.id) {
+                              setSelectedPackId(pack.id);
+                            }
+                          }}
+                          className={`btn-3d flex items-center gap-1.5 whitespace-nowrap rounded-xl px-3 py-1.5 text-xs font-bold transition-all ${
+                            isSelected
+                              ? "bg-purple-600 text-white shadow-lingo-purple border border-purple-700"
+                              : isAllDone
+                              ? "bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-300"
+                              : "bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200"
+                          }`}
+                        >
+                          <span>{pack.icon}</span>
+                          <span>{pack.name.split(":")[0]}</span>
+                          {isAllDone ? (
+                            <span className="flex h-4 w-4 items-center justify-center rounded-full bg-emerald-600 text-[10px] font-black text-white">
+                              ✓
+                            </span>
+                          ) : doneCount > 0 ? (
+                            <span
+                              className={`rounded-full px-1.5 py-0.2 text-[9px] font-black ${
+                                isSelected
+                                  ? "bg-white/20 text-white"
+                                  : "bg-purple-100 text-purple-800"
+                              }`}
+                            >
+                              {doneCount}/{packWords.length}
+                            </span>
+                          ) : null}
+                        </button>
+                      );
+                    })}
                     <button
                       type="button"
                       onClick={() => {
                         if (selectedPackId !== "all") {
                           setSelectedPackId("all");
-                          setQuestionIndex(0);
-                          setStatus("idle");
-                          setSelectedStringAnswer("");
                         }
                       }}
                       className={`btn-3d flex items-center gap-1.5 whitespace-nowrap rounded-xl px-3 py-1.5 text-xs font-bold transition-all ${
@@ -522,8 +712,96 @@ export default function PracticeSessionPage({ params }: PageProps) {
                     >
                       <span>🔥</span>
                       <span>All 500 Words</span>
+                      {mounted && (
+                        <span
+                          className={`rounded-full px-1.5 py-0.2 text-[9px] font-black ${
+                            selectedPackId === "all"
+                              ? "bg-white/20 text-white"
+                              : "bg-emerald-100 text-emerald-800"
+                          }`}
+                        >
+                          {SYNONYM_EXERCISES.filter((w) => completedExerciseIds.includes(w.id)).length}/500
+                        </span>
+                      )}
                     </button>
                   </div>
+
+                  {/* Word Navigator (Pills with Checkmark ✓) */}
+                  <div className="pt-2 border-t border-gray-100">
+                    <div className="flex items-center justify-between gap-2 mb-1.5">
+                      <span className="text-[11px] font-bold text-gray-400">
+                        Pack daxilindəki sözlər:
+                      </span>
+                      {activeSynonymExercises[questionIndex] &&
+                        mounted &&
+                        completedExerciseIds.includes(activeSynonymExercises[questionIndex].id) && (
+                          <span className="inline-flex items-center gap-1 text-[11px] font-black text-emerald-600">
+                            <Check className="h-3 w-3" />
+                            <span>Bu söz tamamlanıb (✓)</span>
+                          </span>
+                        )}
+                    </div>
+                    <div className="flex items-center gap-1.5 overflow-x-auto py-1 no-scrollbar">
+                      {activeSynonymExercises.map((ex, idx) => {
+                        const isDone = mounted && completedExerciseIds.includes(ex.id);
+                        const isCurrent = idx === questionIndex;
+                        return (
+                          <button
+                            key={ex.id}
+                            type="button"
+                            onClick={() => {
+                              setQuestionIndex(idx);
+                              setStatus("idle");
+                              setSelectedStringAnswer("");
+                            }}
+                            className={`flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-lg text-xs font-black transition-all ${
+                              isCurrent
+                                ? "border-2 border-purple-600 bg-purple-600 text-white shadow-sm ring-2 ring-purple-200"
+                                : isDone
+                                ? "border border-emerald-300 bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
+                                : "border border-gray-200 bg-white text-gray-400 hover:bg-gray-50 hover:text-gray-700"
+                            }`}
+                            title={`Söz ${idx + 1}: ${ex.targetWord}${isDone ? " (Tamamlanıb ✓)" : ""}`}
+                          >
+                            {isDone ? "✓" : idx + 1}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Quick Jump to First Unfinished Word if user is viewing a completed one */}
+                  {(() => {
+                    const firstUnfinished = activeSynonymExercises.findIndex(
+                      (ex) => !completedExerciseIds.includes(ex.id)
+                    );
+                    const isCurDone =
+                      activeSynonymExercises[questionIndex] &&
+                      completedExerciseIds.includes(activeSynonymExercises[questionIndex].id);
+
+                    if (isCurDone && firstUnfinished >= 0 && firstUnfinished !== questionIndex) {
+                      return (
+                        <div className="flex items-center justify-between rounded-xl bg-purple-50 px-3 py-1.5 border border-purple-200 text-xs">
+                          <span className="text-purple-800 font-medium">
+                            Bu sözü artıq tamamlamısınız.
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setQuestionIndex(firstUnfinished);
+                              setStatus("idle");
+                              setSelectedStringAnswer("");
+                            }}
+                            className="font-bold text-purple-900 underline hover:text-purple-950 flex items-center gap-1"
+                          >
+                            <span>Qaldığınız yerə keç (Söz {firstUnfinished + 1})</span>
+                            <ArrowRight className="h-3 w-3" />
+                          </button>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })()}
                 </div>
 
                 <SynonymDrill

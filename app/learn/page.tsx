@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 
 export default function LearnPage() {
-  const { isTrackCompleted, xp, streak } = useIeltsStore();
+  const { isTrackCompleted, xp, streak, completedExerciseIds } = useIeltsStore();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -548,6 +548,14 @@ export default function LearnPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {writingDrills.map((drill) => {
                 const completed = mounted ? isTrackCompleted(drill.id) : false;
+                const completedCount =
+                  mounted && Array.isArray(completedExerciseIds)
+                    ? drill.id === "writing-spelling"
+                      ? completedExerciseIds.filter((id) => id.startsWith("spell-")).length
+                      : drill.id === "writing-synonyms"
+                      ? completedExerciseIds.filter((id) => id.startsWith("syn-")).length
+                      : 0
+                    : 0;
 
                 return (
                   <div
@@ -575,6 +583,16 @@ export default function LearnPage() {
                       <p className="mt-2 text-xs text-gray-500 leading-relaxed">
                         {drill.subtitle}
                       </p>
+
+                      {/* Completed Words Progress for Spelling and Synonyms */}
+                      {completedCount > 0 && (
+                        <div className="mt-3 flex items-center justify-between rounded-xl bg-emerald-50 px-2.5 py-1 text-[11px] font-bold text-emerald-800 border border-emerald-200">
+                          <span>{completedCount} / 500 söz tamamlanıb</span>
+                          <span className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-emerald-600 text-[9px] font-black text-white">
+                            ✓
+                          </span>
+                        </div>
+                      )}
                     </div>
 
                     <div className="mt-6 flex items-center justify-between border-t border-gray-100 pt-4">
@@ -597,6 +615,11 @@ export default function LearnPage() {
                           <>
                             <CheckCircle2 className="h-3.5 w-3.5" />
                             <span>Drill Again</span>
+                          </>
+                        ) : completedCount > 0 ? (
+                          <>
+                            <Play className="h-3.5 w-3.5 fill-current" />
+                            <span>Davam et ({completedCount})</span>
                           </>
                         ) : (
                           <>
