@@ -16,6 +16,7 @@ import {
   ArrowRight,
   Volume2,
   GraduationCap,
+  Link2,
 } from "lucide-react";
 
 export default function LearnPage() {
@@ -574,6 +575,39 @@ export default function LearnPage() {
                   className="btn-3d flex items-center justify-center gap-2 whitespace-nowrap rounded-2xl bg-white px-6 py-3.5 text-sm font-black text-gray-900 shadow-sm hover:bg-gray-100 shrink-0"
                 >
                   <span>Open 200 Lexicon</span>
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+
+            {/* FEATURED: Top 30 Essential IELTS Linking Words & Cohesive Devices */}
+            <div className="mb-6 overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-800 via-purple-900 to-slate-900 p-6 text-white shadow-lg transition-transform hover:scale-[1.005]">
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+                <div className="space-y-2">
+                  <div className="inline-flex items-center gap-2 rounded-full bg-white/20 px-3 py-0.5 text-xs font-black uppercase tracking-wider backdrop-blur-sm">
+                    <Link2 className="h-3.5 w-3.5 text-amber-300" />
+                    Essential Band 8.5–9.0 Cohesive Devices
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-black">
+                    Top 30 IELTS Linking Words &amp; Formulas
+                  </h3>
+                  <p className="text-xs sm:text-sm text-white/90 max-w-2xl leading-relaxed">
+                    Master exactly where to place cohesive devices in your essays, learn precise grammatical formulas, and practice cloze drills with instant audio feedback.
+                  </p>
+                  <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs font-bold text-indigo-200 pt-1">
+                    <span>⚡ 9 Functional Parts (Intro to Conclusion)</span>
+                    <span>•</span>
+                    <span>📐 Grammatical Formulas &amp; Placements</span>
+                    <span>•</span>
+                    <span>🎯 Interactive Cohesion Quiz</span>
+                  </div>
+                </div>
+
+                <Link
+                  href="/linking-words"
+                  className="btn-3d flex items-center justify-center gap-2 whitespace-nowrap rounded-2xl bg-white px-6 py-3.5 text-sm font-black text-indigo-950 shadow-sm hover:bg-gray-100 shrink-0"
+                >
+                  <span>Practice Linking Words</span>
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>

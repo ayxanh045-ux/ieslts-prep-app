@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useIeltsStore } from "@/lib/store/useIeltsStore";
 import { soundEngine } from "@/lib/audio/sound-effects";
-import { Flame, Zap, Award, Volume2, VolumeX, BookOpen, Calculator, FileCheck, Bookmark, AlertTriangle, Sparkles } from "lucide-react";
+import { Flame, Zap, Award, Volume2, VolumeX, BookOpen, Calculator, FileCheck, Bookmark, AlertTriangle, Sparkles, Link2 } from "lucide-react";
 import { useEffect, useState, useMemo } from "react";
 import { useVocabularyStore } from "@/lib/store/useVocabularyStore";
 import { useMistakesStore } from "@/lib/store/useMistakesStore";
@@ -121,6 +121,20 @@ export function Navbar() {
             </span>
           </Link>
           <Link
+            href="/linking-words"
+            className={`flex items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-bold transition-all ${
+              pathname.startsWith("/linking-words")
+                ? "bg-indigo-50 text-indigo-800 font-black"
+                : "text-gray-600 hover:bg-gray-100"
+            }`}
+          >
+            <Link2 className="h-4 w-4 text-indigo-600" />
+            <span>Linking Words</span>
+            <span className="rounded-full bg-indigo-100 px-1.5 py-0.2 text-[10px] font-black text-indigo-800">
+              30
+            </span>
+          </Link>
+          <Link
             href="/mistakes"
             className={`flex items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-bold transition-all ${
               pathname.startsWith("/mistakes")
@@ -189,6 +203,16 @@ export function Navbar() {
             aria-label="Paraphrasing"
           >
             <Sparkles className="h-4 w-4 text-teal-600" />
+          </Link>
+
+          {/* Mobile Linking Words Link */}
+          <Link
+            href="/linking-words"
+            className="flex md:hidden h-9 w-9 items-center justify-center rounded-xl border border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition-colors shadow-sm"
+            title="30 Essential Linking Words"
+            aria-label="Linking Words"
+          >
+            <Link2 className="h-4 w-4 text-indigo-600" />
           </Link>
 
           <Link
