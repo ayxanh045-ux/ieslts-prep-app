@@ -545,6 +545,40 @@ export default function LearnPage() {
               </div>
             </div>
 
+            {/* FEATURED: The Master 200-Word Paraphrasing Lexicon */}
+            <div className="mb-6 overflow-hidden rounded-3xl bg-gradient-to-r from-teal-700 via-emerald-800 to-slate-900 p-6 text-white shadow-lg transition-transform hover:scale-[1.005]">
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+                <div className="space-y-2">
+                  <div className="inline-flex items-center gap-2 rounded-full bg-white/20 px-3 py-0.5 text-xs font-black uppercase tracking-wider backdrop-blur-sm">
+                    <Sparkles className="h-3.5 w-3.5 text-amber-300" />
+                    Master Reference & Drill • Zero Repetition
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-black">
+                    The Master 200-Word Paraphrasing Lexicon
+                  </h3>
+                  <p className="text-xs sm:text-sm text-white/90 max-w-2xl leading-relaxed">
+                    Eliminate repetitive Band 5–6 words (show, increase, people, problem, because, etc.) in Task 1 & 2.
+                    Explore 600+ Band 7.5–9.0 academic alternatives with authentic Cambridge collocations and interactive practice drills.
+                  </p>
+                  <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs font-bold text-emerald-200 pt-1">
+                    <span>⚡ 10 Thematic Categories</span>
+                    <span>•</span>
+                    <span>🔊 British Audio Pronunciation</span>
+                    <span>•</span>
+                    <span>🎯 Zero-Repetition Reflex Drill</span>
+                  </div>
+                </div>
+
+                <Link
+                  href="/paraphrase-lexicon"
+                  className="btn-3d flex items-center justify-center gap-2 whitespace-nowrap rounded-2xl bg-white px-6 py-3.5 text-sm font-black text-gray-900 shadow-sm hover:bg-gray-100 shrink-0"
+                >
+                  <span>Open 200 Lexicon</span>
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {writingDrills.map((drill) => {
                 const completed = mounted ? isTrackCompleted(drill.id) : false;

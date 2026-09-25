@@ -989,12 +989,30 @@ export default function PracticeSessionPage({ params }: PageProps) {
 
             {/* 2. Writing: Paraphrase */}
             {trackId === "writing-paraphrase" && (
-              <ParaphraseEditor
-                exercise={PARAPHRASE_EXERCISES[questionIndex]}
-                selectedOptionId={selectedStringAnswer}
-                onSelectOption={(id) => setSelectedStringAnswer(id)}
-                status={status}
-              />
+              <div className="space-y-4">
+                <div className="mx-auto max-w-2xl rounded-2xl bg-gradient-to-r from-teal-50 to-emerald-50 border-2 border-teal-200 p-4 flex items-center justify-between gap-3 shadow-2xs">
+                  <div className="flex items-center gap-2.5">
+                    <Sparkles className="h-5 w-5 text-teal-600 shrink-0" />
+                    <div>
+                      <h4 className="text-xs font-black text-teal-950">Master 200-Word Paraphrasing Lexicon</h4>
+                      <p className="text-[11px] text-teal-800">Learn 600+ Band 8.5+ synonyms to eliminate repetition in essays.</p>
+                    </div>
+                  </div>
+                  <Link
+                    href="/paraphrase-lexicon"
+                    className="btn-3d whitespace-nowrap rounded-xl bg-teal-600 px-3.5 py-1.5 text-xs font-black text-white shadow-sm hover:bg-teal-700 shrink-0"
+                  >
+                    Open Lexicon
+                  </Link>
+                </div>
+
+                <ParaphraseEditor
+                  exercise={PARAPHRASE_EXERCISES[questionIndex]}
+                  selectedOptionId={selectedStringAnswer}
+                  onSelectOption={(id) => setSelectedStringAnswer(id)}
+                  status={status}
+                />
+              </div>
             )}
 
             {/* 3. Listening Module */}

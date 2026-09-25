@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useIeltsStore } from "@/lib/store/useIeltsStore";
 import { soundEngine } from "@/lib/audio/sound-effects";
-import { Flame, Zap, Award, Volume2, VolumeX, BookOpen, Calculator, FileCheck, Bookmark, AlertTriangle } from "lucide-react";
+import { Flame, Zap, Award, Volume2, VolumeX, BookOpen, Calculator, FileCheck, Bookmark, AlertTriangle, Sparkles } from "lucide-react";
 import { useEffect, useState, useMemo } from "react";
 import { useVocabularyStore } from "@/lib/store/useVocabularyStore";
 import { useMistakesStore } from "@/lib/store/useMistakesStore";
@@ -107,6 +107,20 @@ export function Navbar() {
             )}
           </Link>
           <Link
+            href="/paraphrase-lexicon"
+            className={`flex items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-bold transition-all ${
+              pathname.startsWith("/paraphrase-lexicon")
+                ? "bg-teal-50 text-teal-800 font-black"
+                : "text-gray-600 hover:bg-gray-100"
+            }`}
+          >
+            <Sparkles className="h-4 w-4 text-teal-600" />
+            <span>Paraphrasing</span>
+            <span className="rounded-full bg-teal-100 px-1.5 py-0.2 text-[10px] font-black text-teal-800">
+              200
+            </span>
+          </Link>
+          <Link
             href="/mistakes"
             className={`flex items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-bold transition-all ${
               pathname.startsWith("/mistakes")
@@ -167,6 +181,16 @@ export function Navbar() {
           </div>
 
           {/* Mobile Vocabulary Link */}
+          {/* Mobile Paraphrase Link */}
+          <Link
+            href="/paraphrase-lexicon"
+            className="flex md:hidden h-9 w-9 items-center justify-center rounded-xl border border-teal-200 bg-teal-50 text-teal-700 hover:bg-teal-100 transition-colors shadow-sm"
+            title="200-Word Paraphrasing Lexicon"
+            aria-label="Paraphrasing"
+          >
+            <Sparkles className="h-4 w-4 text-teal-600" />
+          </Link>
+
           <Link
             href="/vocabulary"
             className="flex md:hidden h-9 w-9 items-center justify-center rounded-xl border border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-100 transition-colors shadow-sm relative"

@@ -13,6 +13,7 @@ export * from "./writing-drills";
 export * from "./listening-chunks";
 export * from "./cambridge-micro-practice";
 export * from "./cambridge-full-tree-engine";
+export * from "./paraphrase-lexicon-data";
 
 // Unified reading passages pool
 export const COMBINED_READING_PASSAGES: ReadingPassageChunk[] = [
