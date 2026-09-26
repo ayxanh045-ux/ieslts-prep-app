@@ -66,7 +66,7 @@ export default function ParaphraseLexiconPage() {
         contextSentence: item.contextSentence,
         sourcePassageTitle: "Master IELTS Paraphrasing Lexicon",
         sourceReference: `${item.categoryName} (#${item.id})`,
-        definition: `Band 8.0+ Academic Paraphrase for base word "${item.baseWord}".`,
+        definition: `Top 3-4 most used synonyms for "${item.baseWord}": ${item.highBandParaphrases.join(", ")}.`,
       });
       soundEngine.playCorrect();
       showToast(`Saved "${wordToSave}" to Vocabulary Notebook (+10 XP)`);
@@ -103,28 +103,39 @@ export default function ParaphraseLexiconPage() {
   const currentQuizItem = quizPool[quizIndex % quizPool.length];
 
   // Generate 4 randomized options for the current quiz item
-  const quizOptions = useMemo(() => {
-    if (!currentQuizItem) return [];
-    const correct = currentQuizItem.highBandParaphrases[0];
+  const quizSetup = useMemo(() => {
+    if (!currentQuizItem) return null;
+    const correctOptions = currentQuizItem.highBandParaphrases;
+    const targetCorrect = correctOptions[0];
     const distractors: string[] = [];
     const poolWithoutCurrent = PARAPHRASE_LEXICON_ITEMS.filter((i) => i.id !== currentQuizItem.id);
 
     while (distractors.length < 3) {
       const randItem = poolWithoutCurrent[Math.floor(Math.random() * poolWithoutCurrent.length)];
-      const randSyn = randItem.highBandParaphrases[0];
-      if (!distractors.includes(randSyn) && randSyn !== correct) {
+      const randSyn =
+        randItem.highBandParaphrases[
+          Math.floor(Math.random() * randItem.highBandParaphrases.length)
+        ];
+      const lowerSyns = correctOptions.map((s) => s.toLowerCase());
+      if (!distractors.includes(randSyn) && !lowerSyns.includes(randSyn.toLowerCase())) {
         distractors.push(randSyn);
       }
     }
 
-    return [correct, ...distractors].sort(() => 0.5 - Math.random());
+    const shuffled = [targetCorrect, ...distractors].sort(() => 0.5 - Math.random());
+    return {
+      targetCorrect,
+      options: shuffled,
+      allValidSynonyms: correctOptions,
+    };
   }, [currentQuizItem]);
 
   const handleSelectQuizOption = (opt: string) => {
-    if (quizStatus !== "idle") return;
+    if (quizStatus !== "idle" || !quizSetup) return;
     setSelectedAnswer(opt);
-    const correct = currentQuizItem.highBandParaphrases[0];
-    const isCorrect = opt.toLowerCase() === correct.toLowerCase();
+    const isCorrect = quizSetup.allValidSynonyms.some(
+      (s) => s.toLowerCase() === opt.toLowerCase()
+    );
 
     if (isCorrect) {
       soundEngine.playCorrect();
@@ -201,8 +212,8 @@ export default function ParaphraseLexiconPage() {
               </h1>
               <p className="mt-2 text-xs sm:text-sm text-white/90 max-w-2xl leading-relaxed">
                 Repetition is the #1 reason candidates get stuck at Band 6.0–6.5. This master lexicon
-                arms you with over 600+ Band 7.5–9.0 synonyms, natural academic collocations, and
-                syntactic transformations to eliminate repetition across Task 1 and Task 2 essays.
+                arms you with the 3–4 most frequently used, practical academic synonyms for 200 common words.
+                No obscure or bizarre jargon — only high-frequency words examiners love to see.
               </p>
             </div>
 
@@ -213,12 +224,12 @@ export default function ParaphraseLexiconPage() {
                 <div className="text-[10px] uppercase font-bold text-white/80">Base Words</div>
               </div>
               <div className="rounded-2xl bg-white/10 backdrop-blur-md p-3 text-center border border-white/20 min-w-[80px]">
-                <div className="text-xl font-black">10</div>
-                <div className="text-[10px] uppercase font-bold text-white/80">Categories</div>
+                <div className="text-xl font-black">3–4</div>
+                <div className="text-[10px] uppercase font-bold text-white/80">Synonyms Each</div>
               </div>
               <div className="rounded-2xl bg-white/10 backdrop-blur-md p-3 text-center border border-white/20 min-w-[80px]">
-                <div className="text-xl font-black text-amber-300">Band 9</div>
-                <div className="text-[10px] uppercase font-bold text-white/80">Target</div>
+                <div className="text-xl font-black text-amber-300">Band 8.0+</div>
+                <div className="text-[10px] uppercase font-bold text-white/80">Natural Range</div>
               </div>
             </div>
           </div>
@@ -406,7 +417,7 @@ export default function ParaphraseLexiconPage() {
                       {/* High-Band Paraphrases */}
                       <div className="mb-4">
                         <span className="text-[11px] font-black uppercase tracking-wider text-emerald-700 block mb-1.5">
-                          High-Band Academic Alternatives (Band 7.5–9.0):
+                          Top 3–4 Most-Used Academic Synonyms:
                         </span>
                         <div className="flex flex-wrap gap-1.5">
                           {item.highBandParaphrases.map((para, pIdx) => {
@@ -542,15 +553,17 @@ export default function ParaphraseLexiconPage() {
                 </div>
 
                 <label className="text-xs font-bold text-gray-700 block mb-2">
-                  Which is the optimal Band 8.5+ paraphrase for this context?
+                  Which is the most common academic synonym to replace &ldquo;{currentQuizItem.baseWord}&rdquo;?
                 </label>
 
                 {/* 4 Multiple Choice Options */}
                 <div className="grid grid-cols-1 gap-2.5">
-                  {quizOptions.map((opt, oIdx) => {
+                  {quizSetup?.options.map((opt, oIdx) => {
                     const isSelected = selectedAnswer === opt;
                     const isCorrectOpt =
-                      opt.toLowerCase() === currentQuizItem.highBandParaphrases[0].toLowerCase();
+                      quizSetup.allValidSynonyms.some(
+                        (s) => s.toLowerCase() === opt.toLowerCase()
+                      );
 
                     let btnStyle = "border-gray-200 bg-white hover:bg-gray-50 text-gray-800";
                     if (quizStatus !== "idle") {
@@ -615,14 +628,14 @@ export default function ParaphraseLexiconPage() {
                         <>
                           <XCircle className="h-5 w-5 text-rose-600" />
                           <span className="text-sm font-black text-rose-800">
-                            Not Quite: Best Option is &ldquo;{currentQuizItem.highBandParaphrases[0]}&rdquo;
+                            Not Quite: Common Synonym is &ldquo;{quizSetup?.targetCorrect}&rdquo;
                           </span>
                         </>
                       )}
                     </div>
 
                     <button
-                      onClick={() => handleSpeak(currentQuizItem.highBandParaphrases[0])}
+                      onClick={() => handleSpeak(quizSetup?.targetCorrect || currentQuizItem.highBandParaphrases[0])}
                       className="inline-flex items-center gap-1 text-xs font-bold text-gray-600 hover:text-gray-900"
                     >
                       <Volume2 className="h-3.5 w-3.5" />
@@ -630,14 +643,27 @@ export default function ParaphraseLexiconPage() {
                     </button>
                   </div>
 
-                  <p className="text-xs text-gray-700 leading-relaxed mb-3">
-                    <strong>Other great alternatives:</strong>{" "}
-                    {currentQuizItem.highBandParaphrases.slice(1).join(", ") || "None"}
-                  </p>
+                  <div className="my-2.5">
+                    <span className="text-[11px] font-black uppercase tracking-wider text-gray-600 block mb-1.5">
+                      Top 3–4 Most-Used Synonyms for &ldquo;{currentQuizItem.baseWord}&rdquo;:
+                    </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {currentQuizItem.highBandParaphrases.map((syn, sIdx) => (
+                        <button
+                          key={sIdx}
+                          onClick={() => handleSpeak(syn)}
+                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-white border border-gray-300 text-xs font-bold text-gray-800 hover:border-purple-400 shadow-sm"
+                        >
+                          <span>{syn}</span>
+                          <Volume2 className="h-3 w-3 text-purple-600" />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
 
                   <button
                     onClick={handleNextQuizQuestion}
-                    className="btn-3d w-full flex items-center justify-center gap-2 rounded-2xl bg-purple-600 py-3.5 text-sm font-black text-white shadow-lingo-purple hover:bg-purple-700 transition-all"
+                    className="btn-3d w-full flex items-center justify-center gap-2 rounded-2xl bg-purple-600 py-3.5 text-sm font-black text-white shadow-lingo-purple hover:bg-purple-700 transition-all mt-3"
                   >
                     <span>Next Question (Press Enter)</span>
                     <ArrowRight className="h-4 w-4" />

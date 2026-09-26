@@ -1,5 +1,5 @@
 // The Master IELTS 200-Word Paraphrasing Lexicon Data
-// A Complete Reference Guide to Eliminating Repetition in Writing (Task 1 & 2) and Speaking
+// Curated: Only the 3-4 most frequently used, natural academic synonyms (No obscure jargon)
 
 export interface ParaphraseCategory {
   index: number;
@@ -28,7 +28,7 @@ export const PARAPHRASE_CATEGORIES: ParaphraseCategory[] = [
       20
     ],
     "icon": "\u26a1",
-    "description": "Show, increase, decrease, cause, prevent, alter, furnish..."
+    "description": "Show, increase, decrease, cause, prevent, alter, produce..."
   },
   {
     "index": 2,
@@ -38,7 +38,7 @@ export const PARAPHRASE_CATEGORIES: ParaphraseCategory[] = [
       40
     ],
     "icon": "\ud83d\udc8e",
-    "description": "Beneficial, deleterious, immense, negligible, paramount..."
+    "description": "Beneficial, harmful, substantial, minimal, crucial..."
   },
   {
     "index": 3,
@@ -48,7 +48,7 @@ export const PARAPHRASE_CATEGORIES: ParaphraseCategory[] = [
       60
     ],
     "icon": "\ud83d\udc65",
-    "description": "Populace, adolescents, affluent strata, denizens, felons..."
+    "description": "Individuals, youth, elderly, citizens, parents..."
   },
   {
     "index": 4,
@@ -58,7 +58,7 @@ export const PARAPHRASE_CATEGORIES: ParaphraseCategory[] = [
       80
     ],
     "icon": "\ud83c\udf93",
-    "description": "Tertiary establishments, pedagogical professionals, erudition..."
+    "description": "Institutions, educators, undergraduates, skills..."
   },
   {
     "index": 5,
@@ -68,7 +68,7 @@ export const PARAPHRASE_CATEGORIES: ParaphraseCategory[] = [
       100
     ],
     "icon": "\ud83d\ude80",
-    "description": "Automated algorithms, synthetic cognitive agents, cyberspace..."
+    "description": "Digital tools, modern devices, internet, AI..."
   },
   {
     "index": 6,
@@ -78,7 +78,7 @@ export const PARAPHRASE_CATEGORIES: ParaphraseCategory[] = [
       120
     ],
     "icon": "\ud83c\udf31",
-    "description": "Biosphere, contamination, metropolises, anthropogenic crisis..."
+    "description": "Ecosystem, emissions, metropolis, wildlife..."
   },
   {
     "index": 7,
@@ -88,7 +88,7 @@ export const PARAPHRASE_CATEGORIES: ParaphraseCategory[] = [
       140
     ],
     "icon": "\ud83d\udcbc",
-    "description": "Remuneration, corporate entities, fiscal ecosystem, capital..."
+    "description": "Income, employment, enterprise, commerce..."
   },
   {
     "index": 8,
@@ -98,7 +98,7 @@ export const PARAPHRASE_CATEGORIES: ParaphraseCategory[] = [
       160
     ],
     "icon": "\ud83e\ude7a",
-    "description": "Physiological vitality, chronic ailments, adiposity, longevity..."
+    "description": "Well-being, physical activity, nutrition, longevity..."
   },
   {
     "index": 9,
@@ -108,7 +108,7 @@ export const PARAPHRASE_CATEGORIES: ParaphraseCategory[] = [
       180
     ],
     "icon": "\ud83e\udde9",
-    "description": "Catalyst, repercussions, conundrums, empirical validation..."
+    "description": "Consequence, challenge, remedy, influence..."
   },
   {
     "index": 10,
@@ -118,7 +118,7 @@ export const PARAPHRASE_CATEGORIES: ParaphraseCategory[] = [
       200
     ],
     "icon": "\ud83d\udd17",
-    "description": "Furthermore, conversely, owing to, by stark contrast, ultimately..."
+    "description": "Furthermore, however, since, consequently, overall..."
   }
 ];
 
@@ -130,14 +130,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\u26a1",
     "baseWord": "Show",
     "highBandParaphrases": [
+      "Demonstrate",
       "Illustrate",
-      "demonstrate",
-      "elucidate",
-      "depict",
-      "reveal",
-      "delineate"
+      "Reveal",
+      "Indicate"
     ],
-    "contextSentence": "The diagram elucidates the cyclical process of..."
+    "contextSentence": "The chart clearly illustrates the trend in energy use."
   },
   {
     "id": 2,
@@ -146,14 +144,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\u26a1",
     "baseWord": "Increase (v)",
     "highBandParaphrases": [
-      "Surge",
-      "escalate",
-      "soar",
-      "proliferate",
-      "climb",
-      "experience an upward trajectory"
+      "Rise",
+      "Grow",
+      "Climb",
+      "Surge"
     ],
-    "contextSentence": "Carbon emissions have surged dramatically over the decade."
+    "contextSentence": "Carbon emissions continue to rise each year."
   },
   {
     "id": 3,
@@ -162,14 +158,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\u26a1",
     "baseWord": "Decrease (v)",
     "highBandParaphrases": [
-      "Plummet",
-      "plunge",
-      "dwindle",
-      "diminish",
-      "contract",
-      "experience a downturn"
+      "Decline",
+      "Drop",
+      "Fall",
+      "Diminish"
     ],
-    "contextSentence": "Oil consumption dwindled steadily following the mandate."
+    "contextSentence": "Car use declined sharply after the tax was introduced."
   },
   {
     "id": 4,
@@ -178,14 +172,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\u26a1",
     "baseWord": "Cause (v)",
     "highBandParaphrases": [
+      "Lead to",
+      "Result in",
       "Trigger",
-      "precipitate",
-      "engender",
-      "bring about",
-      "induce",
-      "give rise to"
+      "Bring about"
     ],
-    "contextSentence": "Rapid industrialisation precipitated severe air degradation."
+    "contextSentence": "Heavy traffic leads to severe air pollution in cities."
   },
   {
     "id": 5,
@@ -194,15 +186,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\u26a1",
     "baseWord": "Stop / Prevent",
     "highBandParaphrases": [
+      "Prevent",
       "Halt",
-      "impede",
-      "deter",
-      "curb",
-      "thwart",
-      "restrain",
-      "mitigate"
+      "Curb",
+      "Deter"
     ],
-    "contextSentence": "Government policies must curb reckless fossil fuel usage."
+    "contextSentence": "Strict laws can prevent illegal waste dumping."
   },
   {
     "id": 6,
@@ -211,14 +200,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\u26a1",
     "baseWord": "Change (v)",
     "highBandParaphrases": [
+      "Alter",
       "Transform",
-      "revolutionise",
-      "alter",
-      "modify",
-      "diversify",
-      "undergo shifts"
+      "Modify",
+      "Shift"
     ],
-    "contextSentence": "Urban planning has undergone a monumental transformation."
+    "contextSentence": "Technology has transformed the way people work."
   },
   {
     "id": 7,
@@ -227,14 +214,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\u26a1",
     "baseWord": "Create / Make",
     "highBandParaphrases": [
+      "Produce",
       "Generate",
-      "establish",
-      "formulate",
-      "produce",
-      "fabricate",
-      "cultivate"
+      "Build",
+      "Establish"
     ],
-    "contextSentence": "Renewable initiatives generate extensive employment prospects."
+    "contextSentence": "Green energy projects generate many new jobs."
   },
   {
     "id": 8,
@@ -243,14 +228,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\u26a1",
     "baseWord": "Give / Provide",
     "highBandParaphrases": [
-      "Furnish",
-      "allocate",
-      "render",
-      "confer",
-      "dispense",
-      "supply"
+      "Provide",
+      "Offer",
+      "Supply",
+      "Grant"
     ],
-    "contextSentence": "The state must furnish subsidies for tertiary scholars."
+    "contextSentence": "Universities should provide financial aid to low-income students."
   },
   {
     "id": 9,
@@ -259,14 +242,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\u26a1",
     "baseWord": "Get / Receive",
     "highBandParaphrases": [
+      "Obtain",
       "Acquire",
-      "obtain",
-      "derive",
-      "gain",
-      "garner",
-      "secure"
+      "Gain",
+      "Receive"
     ],
-    "contextSentence": "Graduates derive substantial professional advantage from internships."
+    "contextSentence": "Graduates gain valuable practical experience from internships."
   },
   {
     "id": 10,
@@ -276,13 +257,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Use (v)",
     "highBandParaphrases": [
       "Utilise",
-      "employ",
-      "harness",
-      "exploit",
-      "adopt",
-      "leverage"
+      "Employ",
+      "Apply",
+      "Adopt"
     ],
-    "contextSentence": "Companies should leverage artificial intelligence to optimise efficiency."
+    "contextSentence": "Schools should utilise digital tools in daily teaching."
   },
   {
     "id": 11,
@@ -291,13 +270,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\u26a1",
     "baseWord": "Choose",
     "highBandParaphrases": [
+      "Select",
       "Opt for",
-      "select",
-      "single out",
-      "designate",
-      "gravitate toward"
+      "Decide on",
+      "Pick"
     ],
-    "contextSentence": "Many students gravitate toward STEM disciplines."
+    "contextSentence": "Many school leavers opt for vocational training over university."
   },
   {
     "id": 12,
@@ -306,13 +284,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\u26a1",
     "baseWord": "Need / Require",
     "highBandParaphrases": [
-      "Necessitate",
-      "demand",
-      "entail",
-      "warrant",
-      "call for"
+      "Require",
+      "Demand",
+      "Call for",
+      "Necessitate"
     ],
-    "contextSentence": "The housing crisis warrants immediate government intervention."
+    "contextSentence": "The housing shortage requires prompt action from the council."
   },
   {
     "id": 13,
@@ -322,12 +299,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Understand",
     "highBandParaphrases": [
       "Comprehend",
-      "fathom",
-      "grasp",
-      "perceive",
-      "discern"
+      "Grasp",
+      "Recognise",
+      "Realise"
     ],
-    "contextSentence": "Scholars must discern the intricate relationship between economics and ecology."
+    "contextSentence": "Students need to grasp basic mathematical principles early."
   },
   {
     "id": 14,
@@ -336,13 +312,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\u26a1",
     "baseWord": "Agree",
     "highBandParaphrases": [
+      "Support",
       "Concur",
-      "endorse",
-      "subscribe to",
-      "advocate",
-      "align with"
+      "Accept",
+      "Back"
     ],
-    "contextSentence": "I firmly concur with the assertion that primary healthcare is fundamental."
+    "contextSentence": "Most economists support the idea of investing in clean power."
   },
   {
     "id": 15,
@@ -351,14 +326,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\u26a1",
     "baseWord": "Disagree",
     "highBandParaphrases": [
+      "Oppose",
+      "Reject",
       "Dispute",
-      "contest",
-      "repudiate",
-      "refute",
-      "oppose",
-      "dissent from"
+      "Challenge"
     ],
-    "contextSentence": "Socio-economic analysts refute the premise that automation causes net job loss."
+    "contextSentence": "Some residents oppose the construction of the new highway."
   },
   {
     "id": 16,
@@ -367,14 +340,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\u26a1",
     "baseWord": "Destroy / Damage",
     "highBandParaphrases": [
-      "Devastate",
-      "impair",
-      "ruin",
-      "compromise",
-      "wreak havoc on",
-      "degrade"
+      "Damage",
+      "Harm",
+      "Ruin",
+      "Impair"
     ],
-    "contextSentence": "Deforestation severely compromises global ecological stability."
+    "contextSentence": "Excessive logging harms local wildlife and soil quality."
   },
   {
     "id": 17,
@@ -384,13 +355,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Improve",
     "highBandParaphrases": [
       "Enhance",
-      "ameliorate",
-      "bolster",
-      "upgrade",
-      "elevate",
-      "refine"
+      "Boost",
+      "Upgrade",
+      "Develop"
     ],
-    "contextSentence": "Modern public transit ameliorates daily commuting stress."
+    "contextSentence": "Better public transport enhances the quality of city life."
   },
   {
     "id": 18,
@@ -399,13 +368,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\u26a1",
     "baseWord": "Happen / Occur",
     "highBandParaphrases": [
-      "Transpire",
-      "materialise",
-      "arise",
-      "ensue",
-      "take place"
+      "Occur",
+      "Take place",
+      "Arise",
+      "Happen"
     ],
-    "contextSentence": "Unforeseen complications frequently materialise during rapid urban sprawl."
+    "contextSentence": "Traffic jams frequently occur during morning rush hours."
   },
   {
     "id": 19,
@@ -414,13 +382,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\u26a1",
     "baseWord": "Explain",
     "highBandParaphrases": [
-      "Articulate",
-      "clarify",
-      "explicate",
-      "account for",
-      "rationalize"
+      "Clarify",
+      "Account for",
+      "Describe",
+      "Outline"
     ],
-    "contextSentence": "Sociologists account for this demographic trend by citing economic pressure."
+    "contextSentence": "The report clarifies why public transit use increased."
   },
   {
     "id": 20,
@@ -429,13 +396,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\u26a1",
     "baseWord": "Start / Begin",
     "highBandParaphrases": [
-      "Commence",
-      "initiate",
-      "embark on",
-      "inaugurate",
-      "trigger"
+      "Begin",
+      "Initiate",
+      "Launch",
+      "Introduce"
     ],
-    "contextSentence": "Municipalities must initiate recycling campaigns without delay."
+    "contextSentence": "The government plans to launch a nationwide recycling drive."
   },
   {
     "id": 21,
@@ -445,12 +411,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Good / Positive",
     "highBandParaphrases": [
       "Beneficial",
-      "advantageous",
-      "constructive",
-      "salutary",
-      "fruitful"
+      "Advantageous",
+      "Favourable",
+      "Positive"
     ],
-    "contextSentence": "Bilingualism yields salutary cognitive dividends."
+    "contextSentence": "Regular physical exercise is beneficial for heart health."
   },
   {
     "id": 22,
@@ -459,13 +424,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc8e",
     "baseWord": "Bad / Negative",
     "highBandParaphrases": [
+      "Harmful",
+      "Damaging",
       "Detrimental",
-      "adverse",
-      "deleterious",
-      "pernicious",
-      "counterproductive"
+      "Adverse"
     ],
-    "contextSentence": "Sedentary routines exert deleterious effects on cardiovascular health."
+    "contextSentence": "A poor diet has detrimental effects on children's growth."
   },
   {
     "id": 23,
@@ -475,12 +439,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Big / Huge",
     "highBandParaphrases": [
       "Substantial",
-      "monumental",
-      "immense",
-      "considerable",
-      "colossal"
+      "Significant",
+      "Considerable",
+      "Major"
     ],
-    "contextSentence": "Urban migration places an immense strain on civic services."
+    "contextSentence": "Tourism brings substantial revenue to coastal towns."
   },
   {
     "id": 24,
@@ -489,14 +452,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc8e",
     "baseWord": "Small / Minor",
     "highBandParaphrases": [
-      "Negligible",
-      "marginal",
-      "minimal",
-      "modest",
-      "trifling",
-      "fractional"
+      "Minor",
+      "Minimal",
+      "Modest",
+      "Slight"
     ],
-    "contextSentence": "The price disparity produced a negligible shift in consumer demand."
+    "contextSentence": "The price rise had only a minimal impact on sales."
   },
   {
     "id": 25,
@@ -506,13 +467,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Important",
     "highBandParaphrases": [
       "Crucial",
-      "vital",
-      "paramount",
-      "pivotal",
-      "indispensable",
-      "momentous"
+      "Vital",
+      "Essential",
+      "Significant"
     ],
-    "contextSentence": "Early childhood intervention is of paramount importance."
+    "contextSentence": "Reading regularly is crucial for language development."
   },
   {
     "id": 26,
@@ -521,13 +480,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc8e",
     "baseWord": "Unimportant",
     "highBandParaphrases": [
-      "Inconsequential",
-      "trivial",
-      "peripheral",
-      "negligible",
-      "secondary"
+      "Insignificant",
+      "Minor",
+      "Secondary",
+      "Trivial"
     ],
-    "contextSentence": "Initial logistical concerns proved inconsequential to overall success."
+    "contextSentence": "Minor spelling slips are secondary to clear essay structure."
   },
   {
     "id": 27,
@@ -536,13 +494,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc8e",
     "baseWord": "Necessary",
     "highBandParaphrases": [
-      "Imperative",
-      "compulsory",
-      "obligatory",
-      "indispensable",
-      "requisite"
+      "Essential",
+      "Required",
+      "Vital",
+      "Mandatory"
     ],
-    "contextSentence": "Strict statutory compliance is imperative for workplace safety."
+    "contextSentence": "Safety training is mandatory for all factory employees."
   },
   {
     "id": 28,
@@ -551,13 +508,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc8e",
     "baseWord": "Easy",
     "highBandParaphrases": [
+      "Simple",
       "Straightforward",
-      "effortless",
-      "unchallenging",
-      "manageable",
-      "accessible"
+      "Manageable",
+      "Effortless"
     ],
-    "contextSentence": "Digital portals make tax filing vastly more accessible."
+    "contextSentence": "Online banking makes managing personal savings straightforward."
   },
   {
     "id": 29,
@@ -566,13 +522,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc8e",
     "baseWord": "Difficult / Hard",
     "highBandParaphrases": [
-      "Arduous",
-      "demanding",
-      "formidable",
-      "onerous",
-      "challenging"
+      "Challenging",
+      "Demanding",
+      "Tough",
+      "Complex"
     ],
-    "contextSentence": "Mastering a foreign language is an arduous intellectual undertaking."
+    "contextSentence": "Learning a second language as an adult is demanding."
   },
   {
     "id": 30,
@@ -582,12 +537,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Many / A lot of",
     "highBandParaphrases": [
       "Numerous",
-      "myriad",
-      "an abundance of",
-      "a plethora of",
-      "copious"
+      "A wide range of",
+      "Multiple",
+      "Abundant"
     ],
-    "contextSentence": "Globalisation presents myriad economic opportunities."
+    "contextSentence": "Online platforms offer numerous courses for adult learners."
   },
   {
     "id": 31,
@@ -596,14 +550,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc8e",
     "baseWord": "Few / Little",
     "highBandParaphrases": [
+      "Limited",
       "Scarce",
-      "sparse",
-      "deficient",
-      "meager",
-      "nominal",
-      "scant"
+      "Insufficient",
+      "Meager"
     ],
-    "contextSentence": "Public funding allocated to regional libraries remains scant."
+    "contextSentence": "Funds for regional art galleries remain scarce."
   },
   {
     "id": 32,
@@ -612,13 +564,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc8e",
     "baseWord": "Common / Usual",
     "highBandParaphrases": [
+      "Widespread",
+      "Typical",
       "Prevalent",
-      "ubiquitous",
-      "widespread",
-      "conventional",
-      "pervasive"
+      "Regular"
     ],
-    "contextSentence": "Mobile payment systems are now ubiquitous across urban centres."
+    "contextSentence": "Remote working is now widespread in the tech sector."
   },
   {
     "id": 33,
@@ -627,13 +578,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc8e",
     "baseWord": "Rare / Unusual",
     "highBandParaphrases": [
-      "Unprecedented",
-      "exceptional",
-      "scarce",
-      "anomalous",
-      "infrequent"
+      "Uncommon",
+      "Exceptional",
+      "Infrequent",
+      "Rare"
     ],
-    "contextSentence": "Such meteorologic events were virtually unprecedented a century ago."
+    "contextSentence": "Snowfall is uncommon in this southern province."
   },
   {
     "id": 34,
@@ -642,13 +592,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc8e",
     "baseWord": "Dangerous",
     "highBandParaphrases": [
+      "Risky",
       "Hazardous",
-      "perilous",
-      "precarious",
-      "treacherous",
-      "high-risk"
+      "Unsafe",
+      "Perilous"
     ],
-    "contextSentence": "Disposing of untreated effluents poses a perilous threat to marine life."
+    "contextSentence": "Riding bicycles without helmets is hazardous on busy roads."
   },
   {
     "id": 35,
@@ -658,12 +607,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Safe",
     "highBandParaphrases": [
       "Secure",
-      "unthreatened",
-      "protected",
-      "invulnerable",
-      "risk-free"
+      "Protected",
+      "Risk-free",
+      "Harmless"
     ],
-    "contextSentence": "Investments in state infrastructure remain economically secure."
+    "contextSentence": "Modern air travel is exceptionally safe and reliable."
   },
   {
     "id": 36,
@@ -673,12 +621,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Cheap",
     "highBandParaphrases": [
       "Inexpensive",
-      "economical",
-      "cost-effective",
-      "budget-friendly",
-      "low-cost"
+      "Affordable",
+      "Low-cost",
+      "Economical"
     ],
-    "contextSentence": "Solar installations have become increasingly cost-effective."
+    "contextSentence": "Solar power is becoming more affordable for households."
   },
   {
     "id": 37,
@@ -687,13 +634,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc8e",
     "baseWord": "Expensive",
     "highBandParaphrases": [
-      "Exorbitant",
-      "prohibitive",
-      "costly",
-      "premium-priced",
-      "extortionate"
+      "Costly",
+      "Overpriced",
+      "High-priced",
+      "Exorbitant"
     ],
-    "contextSentence": "Tertiary tuition fees in Western institutions are often cost-prohibitive."
+    "contextSentence": "Renting a flat in London has become extremely costly."
   },
   {
     "id": 38,
@@ -702,13 +648,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc8e",
     "baseWord": "Fast / Rapid",
     "highBandParaphrases": [
+      "Rapid",
+      "Quick",
       "Swift",
-      "expeditious",
-      "accelerated",
-      "brisk",
-      "instantaneous"
+      "Speedy"
     ],
-    "contextSentence": "Technological evolution unfolds at an accelerated pace."
+    "contextSentence": "Urban areas experienced rapid population growth last decade."
   },
   {
     "id": 39,
@@ -717,13 +662,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc8e",
     "baseWord": "Slow",
     "highBandParaphrases": [
+      "Gradual",
       "Sluggish",
-      "gradual",
-      "protracted",
-      "languid",
-      "sluggish"
+      "Steady",
+      "Slow-paced"
     ],
-    "contextSentence": "Economic recovery across peripheral zones remains sluggish."
+    "contextSentence": "Economic recovery in rural districts remains sluggish."
   },
   {
     "id": 40,
@@ -732,13 +676,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc8e",
     "baseWord": "Famous / Popular",
     "highBandParaphrases": [
+      "Well-known",
       "Renowned",
-      "celebrated",
-      "distinguished",
-      "prominent",
-      "eminent"
+      "Celebrated",
+      "Prominent"
     ],
-    "contextSentence": "The region is renowned for its rich architectural heritage."
+    "contextSentence": "The city is renowned for its historic museums and parks."
   },
   {
     "id": 41,
@@ -748,12 +691,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "People",
     "highBandParaphrases": [
       "Individuals",
-      "citizens",
-      "populace",
-      "inhabitants",
-      "human beings"
+      "Citizens",
+      "The public",
+      "Society"
     ],
-    "contextSentence": "Urban populaces face escalating real-estate costs."
+    "contextSentence": "Individuals should take personal responsibility for waste."
   },
   {
     "id": 42,
@@ -762,12 +704,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc65",
     "baseWord": "Society",
     "highBandParaphrases": [
-      "Civilisation",
-      "the general public",
-      "community",
-      "social fabric"
+      "Community",
+      "The public",
+      "Civilization",
+      "Culture"
     ],
-    "contextSentence": "Technological disruption reshapes our contemporary social fabric."
+    "contextSentence": "Modern society relies heavily on digital communication."
   },
   {
     "id": 43,
@@ -776,13 +718,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc65",
     "baseWord": "Children / Kids",
     "highBandParaphrases": [
-      "Adolescents",
-      "minors",
-      "youngsters",
-      "juveniles",
-      "offspring"
+      "Young people",
+      "Minors",
+      "Youngsters",
+      "Adolescents"
     ],
-    "contextSentence": "Compulsory schooling serves to nurture young minors."
+    "contextSentence": "Parents must limit screen time for young minors."
   },
   {
     "id": 44,
@@ -792,11 +733,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Old people",
     "highBandParaphrases": [
       "The elderly",
-      "senior citizens",
-      "geriatric populace",
-      "retirees"
+      "Senior citizens",
+      "Older adults",
+      "Retirees"
     ],
-    "contextSentence": "An expanding geriatric populace places demands on healthcare."
+    "contextSentence": "Healthcare systems must support an expanding elderly population."
   },
   {
     "id": 45,
@@ -805,12 +746,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc65",
     "baseWord": "Young people",
     "highBandParaphrases": [
-      "The youth",
-      "adolescents",
-      "emerging generation",
-      "young adults"
+      "Youth",
+      "Teenagers",
+      "Young adults",
+      "Adolescents"
     ],
-    "contextSentence": "Governments must empower the emerging generation through tech training."
+    "contextSentence": "Youth unemployment is a serious challenge in many nations."
   },
   {
     "id": 46,
@@ -820,11 +761,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Parents",
     "highBandParaphrases": [
       "Guardians",
-      "caregivers",
-      "primary providers",
-      "maternal/paternal figures"
+      "Caregivers",
+      "Mothers and fathers",
+      "Family"
     ],
-    "contextSentence": "Legal guardians bear accountability for child welfare."
+    "contextSentence": "Guardians play a central role in early emotional development."
   },
   {
     "id": 47,
@@ -833,11 +774,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc65",
     "baseWord": "Rich people",
     "highBandParaphrases": [
-      "Affluent demographics",
-      "wealthy strata",
-      "high-net-worth individuals"
+      "Wealthy individuals",
+      "The rich",
+      "High-income earners",
+      "Affluent families"
     ],
-    "contextSentence": "The affluent strata of society have greater investment leverage."
+    "contextSentence": "Affluent households tend to spend more on private tutoring."
   },
   {
     "id": 48,
@@ -846,11 +788,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc65",
     "baseWord": "Poor people",
     "highBandParaphrases": [
-      "Underprivileged populations",
-      "impoverished households",
-      "low-income citizens"
+      "Low-income families",
+      "The poor",
+      "Disadvantaged groups",
+      "Impoverished citizens"
     ],
-    "contextSentence": "Subsidies should directly assist impoverished households."
+    "contextSentence": "Government grants directly assist low-income families."
   },
   {
     "id": 49,
@@ -859,12 +802,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc65",
     "baseWord": "Public (n)",
     "highBandParaphrases": [
-      "Civic community",
-      "electorate",
-      "general citizenry",
-      "taxpayers"
+      "Citizens",
+      "Community",
+      "General public",
+      "Taxpayers"
     ],
-    "contextSentence": "The general citizenry expects transparent governance."
+    "contextSentence": "The general public expects prompt and honest public services."
   },
   {
     "id": 50,
@@ -873,12 +816,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc65",
     "baseWord": "Worker / Employee",
     "highBandParaphrases": [
-      "Labourer",
-      "staff member",
-      "workforce participant",
-      "personnel"
+      "Staff",
+      "Employee",
+      "Workforce",
+      "Personnel"
     ],
-    "contextSentence": "Corporate retention hinges on incentivising qualified personnel."
+    "contextSentence": "Companies should invest in training their staff members."
   },
   {
     "id": 51,
@@ -887,13 +830,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc65",
     "baseWord": "Boss / Employer",
     "highBandParaphrases": [
-      "Executive",
-      "management",
-      "corporate head",
-      "supervisor",
-      "enterprise lead"
+      "Manager",
+      "Supervisor",
+      "Employer",
+      "Executive"
     ],
-    "contextSentence": "Enlightened supervisors champion work-life balance."
+    "contextSentence": "A supportive manager improves team productivity and morale."
   },
   {
     "id": 52,
@@ -902,12 +844,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc65",
     "baseWord": "Government",
     "highBandParaphrases": [
+      "Authorities",
       "The state",
-      "governing authorities",
-      "policymakers",
-      "administration"
+      "Policymakers",
+      "Administration"
     ],
-    "contextSentence": "National policymakers must enact rigorous carbon taxes."
+    "contextSentence": "Policymakers must introduce stricter limits on emissions."
   },
   {
     "id": 53,
@@ -916,12 +858,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc65",
     "baseWord": "Citizen",
     "highBandParaphrases": [
-      "Denizen",
-      "resident",
-      "national",
-      "taxpaying member of the state"
+      "Resident",
+      "Inhabitant",
+      "National",
+      "Taxpayer"
     ],
-    "contextSentence": "Urban denizens demand reliable, non-polluting public transport."
+    "contextSentence": "Local residents voted in favour of the new city library."
   },
   {
     "id": 54,
@@ -931,12 +873,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Criminal",
     "highBandParaphrases": [
       "Offender",
-      "lawbreaker",
-      "felon",
-      "delinquent",
-      "perpetrator"
+      "Lawbreaker",
+      "Wrongdoer",
+      "Culprit"
     ],
-    "contextSentence": "Recidivism among repeat felons remains a major societal concern."
+    "contextSentence": "Community service helps first-time offenders reform."
   },
   {
     "id": 55,
@@ -945,12 +886,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc65",
     "baseWord": "Victim",
     "highBandParaphrases": [
-      "Aggrieved party",
-      "affected individual",
-      "casualty",
-      "sufferer"
+      "Sufferer",
+      "Affected person",
+      "Casualty",
+      "Injured party"
     ],
-    "contextSentence": "Restorative justice seeks restitution for the aggrieved party."
+    "contextSentence": "Legal advice should be easily accessible for fraud victims."
   },
   {
     "id": 56,
@@ -959,12 +900,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc65",
     "baseWord": "Community",
     "highBandParaphrases": [
-      "Locality",
-      "civic collective",
-      "neighborhood",
-      "social demographic"
+      "Neighbourhood",
+      "Local area",
+      "Society",
+      "District"
     ],
-    "contextSentence": "Rural localities often suffer from infrastructural neglect."
+    "contextSentence": "Community gardens encourage healthier habits in the district."
   },
   {
     "id": 57,
@@ -973,12 +914,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc65",
     "baseWord": "Family",
     "highBandParaphrases": [
-      "Nuclear unit",
-      "extended family",
-      "household",
-      "domestic circle"
+      "Household",
+      "Relatives",
+      "Nuclear family",
+      "Family unit"
     ],
-    "contextSentence": "Economic stress strains the contemporary nuclear household."
+    "contextSentence": "Rising housing prices place strain on young households."
   },
   {
     "id": 58,
@@ -987,11 +928,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc65",
     "baseWord": "Generation",
     "highBandParaphrases": [
-      "Age cohort",
-      "peer group",
-      "contemporary demographic"
+      "Age group",
+      "Peer group",
+      "Cohort",
+      "Younger generation"
     ],
-    "contextSentence": "The millennial age cohort values flexibility over corporate tenure."
+    "contextSentence": "The younger age group prefers streaming services over cable TV."
   },
   {
     "id": 59,
@@ -1000,11 +942,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc65",
     "baseWord": "Population",
     "highBandParaphrases": [
-      "Demographic count",
-      "head count",
-      "aggregate populace"
+      "Inhabitants",
+      "Residents",
+      "Demographics",
+      "Citizens"
     ],
-    "contextSentence": "A shrinking aggregate populace poses acute economic hurdles."
+    "contextSentence": "The city's population grew rapidly due to job growth."
   },
   {
     "id": 60,
@@ -1013,12 +956,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udc65",
     "baseWord": "Human (n/adj)",
     "highBandParaphrases": [
-      "Mankind",
-      "Homo sapiens",
-      "human race",
-      "mortal beings"
+      "Humankind",
+      "Human beings",
+      "People",
+      "Mankind"
     ],
-    "contextSentence": "The ultimate survival of mankind relies on planetary stewardship."
+    "contextSentence": "Human beings have had a profound impact on global ecosystems."
   },
   {
     "id": 61,
@@ -1028,11 +971,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "School / University",
     "highBandParaphrases": [
       "Educational institution",
-      "academy",
-      "tertiary establishment",
-      "alma mater"
+      "College",
+      "Academy",
+      "Campus"
     ],
-    "contextSentence": "Enrollment in tertiary establishments has risen steeply."
+    "contextSentence": "Higher educational institutions should foster critical thinking."
   },
   {
     "id": 62,
@@ -1041,14 +984,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83c\udf93",
     "baseWord": "Student",
     "highBandParaphrases": [
-      "Scholar",
-      "learner",
-      "undergraduate",
-      "postgraduate",
-      "pupil",
-      "candidate"
+      "Learner",
+      "Pupil",
+      "Undergraduate",
+      "Scholar"
     ],
-    "contextSentence": "Ambitious undergraduates seek competitive internships."
+    "contextSentence": "Learners benefit when theory is paired with practical lab work."
   },
   {
     "id": 63,
@@ -1058,12 +999,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Teacher",
     "highBandParaphrases": [
       "Educator",
-      "pedagogical professional",
-      "instructor",
-      "mentor",
-      "lecturer"
+      "Instructor",
+      "Lecturer",
+      "Tutor"
     ],
-    "contextSentence": "Skillful pedagogical professionals spark lifelong intellectual curiosity."
+    "contextSentence": "Skilled educators motivate pupils to read independently."
   },
   {
     "id": 64,
@@ -1073,11 +1013,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Learn / Study",
     "highBandParaphrases": [
       "Acquire knowledge",
-      "assimilate information",
-      "pursue academia",
-      "master"
+      "Master skills",
+      "Study",
+      "Revise"
     ],
-    "contextSentence": "Students must assimilate complex theoretical frameworks."
+    "contextSentence": "Pupils acquire essential digital skills through weekly workshops."
   },
   {
     "id": 65,
@@ -1086,12 +1026,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83c\udf93",
     "baseWord": "Knowledge",
     "highBandParaphrases": [
-      "Erudition",
-      "intellectual capital",
-      "scholarly insight",
-      "expertise"
+      "Understanding",
+      "Expertise",
+      "Information",
+      "Insight"
     ],
-    "contextSentence": "Building domestic intellectual capital accelerates national innovation."
+    "contextSentence": "Hands-on projects deepen students' understanding of physics."
   },
   {
     "id": 66,
@@ -1100,13 +1040,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83c\udf93",
     "baseWord": "Skill / Ability",
     "highBandParaphrases": [
+      "Competence",
       "Proficiency",
-      "competency",
-      "aptitude",
-      "expertise",
-      "dexterity"
+      "Capability",
+      "Talent"
     ],
-    "contextSentence": "Digital competency is prerequisite for contemporary vocations."
+    "contextSentence": "Language proficiency opens up diverse international careers."
   },
   {
     "id": 67,
@@ -1115,12 +1054,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83c\udf93",
     "baseWord": "Test / Exam",
     "highBandParaphrases": [
-      "Standardised assessment",
-      "evaluation",
-      "examination",
-      "benchmark appraisal"
+      "Assessment",
+      "Examination",
+      "Evaluation",
+      "Appraisal"
     ],
-    "contextSentence": "Rigid standardised assessments may stifle creative thinking."
+    "contextSentence": "Continuous assessment offers a fair reflection of pupil ability."
   },
   {
     "id": 68,
@@ -1130,10 +1069,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Subject",
     "highBandParaphrases": [
       "Academic discipline",
-      "area of inquiry",
-      "curriculum domain"
+      "Field of study",
+      "Course",
+      "Topic"
     ],
-    "contextSentence": "Interdisciplinary areas of inquiry bridge science and philosophy."
+    "contextSentence": "Science and humanities are equally vital fields of study."
   },
   {
     "id": 69,
@@ -1142,12 +1082,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83c\udf93",
     "baseWord": "Smart / Clever",
     "highBandParaphrases": [
-      "Academically gifted",
-      "astute",
-      "intellectually formidable",
-      "proficient"
+      "Intelligent",
+      "Bright",
+      "Gifted",
+      "Sharp"
     ],
-    "contextSentence": "Recognising intellectually gifted pupils enables tailored curricula."
+    "contextSentence": "Bright pupils often need advanced challenges to stay engaged."
   },
   {
     "id": 70,
@@ -1156,11 +1096,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83c\udf93",
     "baseWord": "Degree / Diploma",
     "highBandParaphrases": [
-      "Academic qualification",
-      "credential",
-      "tertiary certificate"
+      "Qualification",
+      "Certificate",
+      "Credential",
+      "Academic award"
     ],
-    "contextSentence": "Attaining a recognized academic credential elevates earning potential."
+    "contextSentence": "A recognized qualification helps job applicants stand out."
   },
   {
     "id": 71,
@@ -1169,11 +1110,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83c\udf93",
     "baseWord": "Homework",
     "highBandParaphrases": [
-      "Independent assignments",
-      "academic coursework",
-      "off-campus tasks"
+      "Assignments",
+      "Coursework",
+      "Independent tasks",
+      "Study tasks"
     ],
-    "contextSentence": "Excessive academic coursework can lead to student exhaustion."
+    "contextSentence": "Regular assignments help pupils consolidate weekly lessons."
   },
   {
     "id": 72,
@@ -1182,11 +1124,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83c\udf93",
     "baseWord": "Career",
     "highBandParaphrases": [
-      "Vocational path",
-      "professional trajectory",
-      "chosen calling"
+      "Profession",
+      "Occupation",
+      "Career path",
+      "Vocation"
     ],
-    "contextSentence": "A promising professional trajectory requires adaptable skills."
+    "contextSentence": "Engineering is a respected and rewarding career path."
   },
   {
     "id": 73,
@@ -1195,13 +1138,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83c\udf93",
     "baseWord": "Success",
     "highBandParaphrases": [
+      "Achievement",
+      "Accomplishment",
       "Triumph",
-      "accomplishment",
-      "attainment",
-      "prosperity",
-      "fruition"
+      "Progress"
     ],
-    "contextSentence": "Academic attainment does not automatically guarantee executive prowess."
+    "contextSentence": "Academic achievement requires consistent effort and self-discipline."
   },
   {
     "id": 74,
@@ -1210,13 +1152,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83c\udf93",
     "baseWord": "Failure",
     "highBandParaphrases": [
+      "Setback",
       "Defeat",
-      "setback",
-      "shortcoming",
-      "deficiency",
-      "underachievement"
+      "Shortcoming",
+      "Lack of success"
     ],
-    "contextSentence": "Institutional underachievement stems from systemic underfunding."
+    "contextSentence": "Treating setbacks as learning moments builds resilience."
   },
   {
     "id": 75,
@@ -1226,11 +1167,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Remember",
     "highBandParaphrases": [
       "Recall",
-      "retain",
-      "preserve in memory",
-      "reminisce"
+      "Retain",
+      "Keep in mind",
+      "Bear in mind"
     ],
-    "contextSentence": "Active learning strategies help learners retain abstract concepts."
+    "contextSentence": "Flashcards help language students retain key vocabulary."
   },
   {
     "id": 76,
@@ -1240,11 +1181,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Forget",
     "highBandParaphrases": [
       "Overlook",
-      "neglect",
-      "lose sight of",
-      "disregard"
+      "Neglect",
+      "Ignore",
+      "Omit"
     ],
-    "contextSentence": "Curricula must not lose sight of ethics in scientific training."
+    "contextSentence": "Historians must not overlook the contribution of rural workers."
   },
   {
     "id": 77,
@@ -1253,12 +1194,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83c\udf93",
     "baseWord": "Think / Opinion",
     "highBandParaphrases": [
-      "Contention",
-      "perspective",
-      "worldview",
-      "intellectual stance"
+      "Belief",
+      "Perspective",
+      "Viewpoint",
+      "Stance"
     ],
-    "contextSentence": "Scholars adopt varying intellectual stances regarding globalisation."
+    "contextSentence": "Scholars hold different perspectives on the benefits of homework."
   },
   {
     "id": 78,
@@ -1268,12 +1209,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Idea",
     "highBandParaphrases": [
       "Concept",
-      "notion",
-      "proposition",
-      "theory",
-      "premise"
+      "Notion",
+      "Proposal",
+      "Suggestion"
     ],
-    "contextSentence": "The underlying premise of the pedagogical model is self-direction."
+    "contextSentence": "The concept of lifelong education is now widely embraced."
   },
   {
     "id": 79,
@@ -1282,11 +1222,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83c\udf93",
     "baseWord": "Fact",
     "highBandParaphrases": [
-      "Empirical reality",
-      "established truth",
-      "substantiated datum"
+      "Reality",
+      "Truth",
+      "Evidence",
+      "Finding"
     ],
-    "contextSentence": "That climate change is human-driven is an empirical reality."
+    "contextSentence": "Scientific evidence confirms that smoking harms lung health."
   },
   {
     "id": 80,
@@ -1295,12 +1236,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83c\udf93",
     "baseWord": "Truth",
     "highBandParaphrases": [
-      "Veracity",
-      "authenticity",
-      "validity",
-      "factual accuracy"
+      "Accuracy",
+      "Factual truth",
+      "Validity",
+      "Correctness"
     ],
-    "contextSentence": "Examiners assess the factual validity of arguments."
+    "contextSentence": "Examiners evaluate the factual accuracy of Task 1 reports."
   },
   {
     "id": 81,
@@ -1309,11 +1250,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\ude80",
     "baseWord": "Technology",
     "highBandParaphrases": [
-      "Technological innovations",
-      "digital apparatus",
-      "automated systems"
+      "Tech systems",
+      "Digital tools",
+      "Innovations",
+      "Modern devices"
     ],
-    "contextSentence": "Embracing state-of-the-art technological innovations enhances output."
+    "contextSentence": "Classrooms use digital tools to make lessons interactive."
   },
   {
     "id": 82,
@@ -1323,11 +1265,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Modern",
     "highBandParaphrases": [
       "Contemporary",
-      "state-of-the-art",
-      "avant-garde",
-      "21st-century"
+      "Current",
+      "Recent",
+      "Present-day"
     ],
-    "contextSentence": "In contemporary urban societies, telecommuting has become standard."
+    "contextSentence": "In contemporary society, telecommuting is becoming commonplace."
   },
   {
     "id": 83,
@@ -1336,12 +1278,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\ude80",
     "baseWord": "Internet",
     "highBandParaphrases": [
+      "The web",
+      "Online space",
       "Cyberspace",
-      "digital superhighway",
-      "virtual network",
-      "online sphere"
+      "Digital network"
     ],
-    "contextSentence": "Commerce is increasingly anchored within the digital sphere."
+    "contextSentence": "The web allows instant access to global news and libraries."
   },
   {
     "id": 84,
@@ -1350,11 +1292,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\ude80",
     "baseWord": "Phone / Computer",
     "highBandParaphrases": [
-      "Handheld gadget",
-      "digital terminal",
-      "electronic device"
+      "Digital device",
+      "Electronic gadget",
+      "Handheld device",
+      "Terminal"
     ],
-    "contextSentence": "Over-reliance on portable electronic devices disrupts sleep hygiene."
+    "contextSentence": "Children spend excessive hours on handheld devices."
   },
   {
     "id": 85,
@@ -1363,12 +1306,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\ude80",
     "baseWord": "Device / Machine",
     "highBandParaphrases": [
-      "Apparatus",
-      "instrument",
-      "mechanical unit",
-      "appliance"
+      "Appliance",
+      "Equipment",
+      "Gadget",
+      "Instrument"
     ],
-    "contextSentence": "Automated apparatuses minimise human error in manufacturing."
+    "contextSentence": "Automated equipment speeds up vehicle production lines."
   },
   {
     "id": 86,
@@ -1378,10 +1321,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "AI / Robot",
     "highBandParaphrases": [
       "Artificial intelligence",
-      "automated algorithm",
-      "synthetic cognitive agent"
+      "Smart machines",
+      "Automated systems",
+      "Robotic tools"
     ],
-    "contextSentence": "Deploying synthetic cognitive agents transforms customer service."
+    "contextSentence": "Artificial intelligence helps doctors detect illnesses early."
   },
   {
     "id": 87,
@@ -1390,11 +1334,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\ude80",
     "baseWord": "Future (n/adj)",
     "highBandParaphrases": [
-      "Prospective era",
-      "subsequent decades",
-      "oncoming horizon"
+      "Coming years",
+      "Ahead",
+      "Long term",
+      "Upcoming"
     ],
-    "contextSentence": "Planning for subsequent decades requires resilient infrastructure."
+    "contextSentence": "Planning for the coming years requires resilient public works."
   },
   {
     "id": 88,
@@ -1403,12 +1348,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\ude80",
     "baseWord": "Progress / Develop",
     "highBandParaphrases": [
-      "Evolution",
-      "advancement",
-      "proliferation",
-      "technological stride"
+      "Advance",
+      "Grow",
+      "Move forward",
+      "Evolve"
     ],
-    "contextSentence": "Rapid technological strides outpace legal and regulatory frameworks."
+    "contextSentence": "Medical science has advanced dramatically in recent decades."
   },
   {
     "id": 89,
@@ -1418,11 +1363,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Information",
     "highBandParaphrases": [
       "Data",
-      "intelligence",
-      "empirical findings",
-      "analytics"
+      "Details",
+      "Facts",
+      "Findings"
     ],
-    "contextSentence": "Harnessing big data analytics delivers predictive customer insight."
+    "contextSentence": "Online search engines help researchers locate relevant data."
   },
   {
     "id": 90,
@@ -1432,12 +1377,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Communicate",
     "highBandParaphrases": [
       "Interact",
-      "liaise",
-      "converse",
-      "transmit information",
-      "interface"
+      "Converse",
+      "Stay in touch",
+      "Exchange views"
     ],
-    "contextSentence": "Remote personnel liaise seamlessly across international time zones."
+    "contextSentence": "Colleagues interact across time zones using video calls."
   },
   {
     "id": 91,
@@ -1446,12 +1390,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\ude80",
     "baseWord": "Replace / Automate",
     "highBandParaphrases": [
-      "Supersede",
-      "render obsolete",
-      "displace human labour",
-      "mechanise"
+      "Substitute",
+      "Take over",
+      "Displace",
+      "Mechanise"
     ],
-    "contextSentence": "Automated workflows threaten to displace manual clerical roles."
+    "contextSentence": "Automated self-checkouts have substituted human cashiers."
   },
   {
     "id": 92,
@@ -1460,13 +1404,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\ude80",
     "baseWord": "Connect",
     "highBandParaphrases": [
-      "Integrate",
-      "interface",
-      "interlink",
-      "bridge",
-      "synchronize"
+      "Link",
+      "Join",
+      "Bridge",
+      "Network"
     ],
-    "contextSentence": "High-speed transit systems interlink peripheral towns with the capital."
+    "contextSentence": "High-speed rail links provincial cities to the capital."
   },
   {
     "id": 93,
@@ -1475,12 +1418,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\ude80",
     "baseWord": "Isolate / Disconnect",
     "highBandParaphrases": [
+      "Cut off",
+      "Separate",
       "Alienate",
-      "sequester",
-      "marginalise",
-      "insulate"
+      "Detach"
     ],
-    "contextSentence": "Social media overuse inadvertently alienates young adolescents."
+    "contextSentence": "Living alone in distant suburbs can cut off elderly residents."
   },
   {
     "id": 94,
@@ -1490,11 +1433,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Online / Virtual",
     "highBandParaphrases": [
       "Digital",
-      "cloud-based",
-      "cyberspace-based",
-      "simulated"
+      "Web-based",
+      "Electronic",
+      "Remote"
     ],
-    "contextSentence": "The migration toward cloud-based workplaces is accelerating."
+    "contextSentence": "Web-based degrees offer flexibility for working adults."
   },
   {
     "id": 95,
@@ -1504,11 +1447,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Risk / Danger (tech)",
     "highBandParaphrases": [
       "Cyber threat",
-      "vulnerability",
-      "algorithmic bias",
-      "security hazard"
+      "Security risk",
+      "Vulnerability",
+      "Hazard"
     ],
-    "contextSentence": "Data breaches represent a severe cybersecurity vulnerability."
+    "contextSentence": "Data hacking is an urgent cybersecurity risk for online banks."
   },
   {
     "id": 96,
@@ -1518,11 +1461,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Instant / Fast",
     "highBandParaphrases": [
       "Immediate",
-      "real-time",
-      "instantaneous",
-      "rapid"
+      "Rapid",
+      "Prompt",
+      "Instantaneous"
     ],
-    "contextSentence": "Users expect real-time financial transaction settlements."
+    "contextSentence": "Consumers expect prompt delivery when shopping on the web."
   },
   {
     "id": 97,
@@ -1531,13 +1474,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\ude80",
     "baseWord": "Convenient",
     "highBandParaphrases": [
-      "Frictionless",
-      "pragmatic",
-      "user-friendly",
-      "expedient",
-      "hassle-free"
+      "Practical",
+      "User-friendly",
+      "Handy",
+      "Hassle-free"
     ],
-    "contextSentence": "E-commerce affords a remarkably frictionless purchasing journey."
+    "contextSentence": "Smartphones offer a practical way to manage daily travel."
   },
   {
     "id": 98,
@@ -1546,12 +1488,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\ude80",
     "baseWord": "Electricity / Power",
     "highBandParaphrases": [
-      "Energy grid",
-      "electrical energy",
-      "wattage",
-      "thermal/hydro output"
+      "Energy",
+      "Electrical power",
+      "Power supply",
+      "Current"
     ],
-    "contextSentence": "Transitioning the national energy grid to green power is crucial."
+    "contextSentence": "Transitioning to clean energy reduces national reliance on gas."
   },
   {
     "id": 99,
@@ -1560,12 +1502,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\ude80",
     "baseWord": "Research (n/v)",
     "highBandParaphrases": [
-      "Empirical investigation",
-      "scholarly inquiry",
-      "probe",
-      "investigate"
+      "Study",
+      "Investigation",
+      "Inquiry",
+      "Examine"
     ],
-    "contextSentence": "Recent scholarly inquiries corroborate the benefits of mindfulness."
+    "contextSentence": "A recent medical study confirms the benefits of daily walking."
   },
   {
     "id": 100,
@@ -1575,11 +1517,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Invention",
     "highBandParaphrases": [
       "Breakthrough",
-      "novel innovation",
-      "proprietary invention",
-      "conception"
+      "Creation",
+      "Innovation",
+      "Discovery"
     ],
-    "contextSentence": "The discovery of penicillin was a seminal medical breakthrough."
+    "contextSentence": "The discovery of penicillin was a landmark medical breakthrough."
   },
   {
     "id": 101,
@@ -1588,12 +1530,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83c\udf31",
     "baseWord": "Environment",
     "highBandParaphrases": [
-      "Biosphere",
-      "ecosystem",
-      "natural habitat",
-      "ecological landscape"
+      "Nature",
+      "Natural world",
+      "Ecosystem",
+      "Habitat"
     ],
-    "contextSentence": "Human activities threaten the delicate balance of the biosphere."
+    "contextSentence": "Pollution damages the delicate balance of the natural world."
   },
   {
     "id": 102,
@@ -1603,11 +1545,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Pollution",
     "highBandParaphrases": [
       "Contamination",
-      "ecological degradation",
-      "toxic emissions",
-      "pollutants"
+      "Emissions",
+      "Toxic waste",
+      "Smog"
     ],
-    "contextSentence": "Unregulated industrialisation accelerates severe water contamination."
+    "contextSentence": "Vehicle emissions remain the chief driver of urban smog."
   },
   {
     "id": 103,
@@ -1616,11 +1558,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83c\udf31",
     "baseWord": "Trash / Rubbish",
     "highBandParaphrases": [
-      "Municipal refuse",
-      "non-biodegradable waste",
-      "landfill debris"
+      "Waste",
+      "Garbage",
+      "Litter",
+      "Refuse"
     ],
-    "contextSentence": "Curbing single-use plastic refuse demands legislative intervention."
+    "contextSentence": "Banning plastic bags helps reduce roadside litter."
   },
   {
     "id": 104,
@@ -1630,11 +1573,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "City / Urban",
     "highBandParaphrases": [
       "Metropolis",
-      "municipal hub",
-      "urban agglomeration",
-      "civic centre"
+      "Urban area",
+      "Town",
+      "Civic centre"
     ],
-    "contextSentence": "Congestion in the metropolis demands sustainable transit solutions."
+    "contextSentence": "Traffic congestion is common across every major metropolis."
   },
   {
     "id": 105,
@@ -1643,12 +1586,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83c\udf31",
     "baseWord": "Countryside / Rural",
     "highBandParaphrases": [
-      "Agrarian region",
-      "rural hinterland",
-      "peripheral locality",
-      "province"
+      "Rural area",
+      "Country",
+      "Countryside",
+      "Village"
     ],
-    "contextSentence": "Depopulation challenges many agrarian regions worldwide."
+    "contextSentence": "Quiet rural areas appeal to retirees seeking peace."
   },
   {
     "id": 106,
@@ -1657,10 +1600,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83c\udf31",
     "baseWord": "Climate change",
     "highBandParaphrases": [
-      "Anthropogenic climate crisis",
-      "global ecological disruption"
+      "Global warming",
+      "Climate crisis",
+      "Rising temperatures",
+      "Shifting climates"
     ],
-    "contextSentence": "Mitigating the anthropogenic climate crisis is a collective duty."
+    "contextSentence": "Mitigating global warming requires coordinated international treaties."
   },
   {
     "id": 107,
@@ -1669,12 +1614,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83c\udf31",
     "baseWord": "Nature / Animals",
     "highBandParaphrases": [
+      "Wildlife",
       "Fauna and flora",
-      "biodiversity",
-      "indigenous species",
-      "wildlife"
+      "Living creatures",
+      "Wild species"
     ],
-    "contextSentence": "Deforestation imperils countless indigenous fauna and flora."
+    "contextSentence": "Deforestation threatens unique wildlife in tropical forests."
   },
   {
     "id": 108,
@@ -1684,11 +1629,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Protect / Conserve",
     "highBandParaphrases": [
       "Safeguard",
-      "preserve",
-      "champion ecological stewardship",
-      "sustain"
+      "Preserve",
+      "Protect",
+      "Conserve"
     ],
-    "contextSentence": "We must safeguard pristine marine habitats from overfishing."
+    "contextSentence": "Nations must safeguard coral reefs from destructive fishing."
   },
   {
     "id": 109,
@@ -1697,13 +1642,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83c\udf31",
     "baseWord": "Cut down (trees)",
     "highBandParaphrases": [
+      "Clear trees",
+      "Log",
       "Deforest",
-      "clear-cut",
-      "raze",
-      "log",
-      "decimate forest cover"
+      "Fell"
     ],
-    "contextSentence": "Logging corporations continue to raze ancient rainforests."
+    "contextSentence": "Farming companies continue to clear trees across the Amazon basin."
   },
   {
     "id": 110,
@@ -1712,11 +1656,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83c\udf31",
     "baseWord": "Traffic / Cars",
     "highBandParaphrases": [
-      "Vehicular congestion",
-      "gridlock",
-      "private automobile dependency"
+      "Vehicular traffic",
+      "Road congestion",
+      "Gridlock",
+      "Motor vehicles"
     ],
-    "contextSentence": "Expanding bicycle lanes alleviates heavy vehicular gridlock."
+    "contextSentence": "Encouraging bus transport helps relieve morning road congestion."
   },
   {
     "id": 111,
@@ -1725,12 +1670,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83c\udf31",
     "baseWord": "Air (dirty)",
     "highBandParaphrases": [
-      "Atmospheric quality",
-      "smog",
-      "airborne particulates",
-      "carbon pollution"
+      "Smog",
+      "Air pollution",
+      "Fumes",
+      "Hazy air"
     ],
-    "contextSentence": "Elevated concentrations of airborne particulates trigger asthma."
+    "contextSentence": "Severe air pollution raises the incidence of asthma in children."
   },
   {
     "id": 112,
@@ -1739,11 +1684,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83c\udf31",
     "baseWord": "Water (clean)",
     "highBandParaphrases": [
-      "Freshwater reserves",
-      "potable water",
-      "aquatic resources"
+      "Potable water",
+      "Freshwater",
+      "Drinking water",
+      "Clean water"
     ],
-    "contextSentence": "Access to potable water constitutes a fundamental human right."
+    "contextSentence": "Access to clean drinking water is a fundamental human right."
   },
   {
     "id": 113,
@@ -1753,11 +1699,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Fuel / Energy",
     "highBandParaphrases": [
       "Fossil fuels",
-      "hydrocarbons",
-      "renewable energy sources",
-      "solar/wind"
+      "Energy sources",
+      "Clean energy",
+      "Power supplies"
     ],
-    "contextSentence": "Subsidising clean hydrocarbon alternatives spurs decarbonisation."
+    "contextSentence": "Investing in clean energy sources cuts reliance on imported oil."
   },
   {
     "id": 114,
@@ -1767,10 +1713,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Earth / Planet",
     "highBandParaphrases": [
       "The globe",
-      "the terrestrial sphere",
-      "the planet"
+      "Our planet",
+      "The world",
+      "The earth"
     ],
-    "contextSentence": "Preserving resource equilibrium across the terrestrial sphere is imperative."
+    "contextSentence": "Conserving fresh water is vital for communities around the globe."
   },
   {
     "id": 115,
@@ -1779,10 +1726,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83c\udf31",
     "baseWord": "Global Warming",
     "highBandParaphrases": [
-      "Rising planetary temperatures",
-      "greenhouse thermal trapping"
+      "Rising temperatures",
+      "Climate heating",
+      "Thermal warming",
+      "Greenhouse effect"
     ],
-    "contextSentence": "Accelerated glacier melt reflects rising planetary temperatures."
+    "contextSentence": "Rising temperatures are causing mountain glaciers to shrink."
   },
   {
     "id": 116,
@@ -1791,11 +1740,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83c\udf31",
     "baseWord": "Habitat",
     "highBandParaphrases": [
-      "Natural biome",
-      "breeding ground",
-      "ecological niche"
+      "Natural home",
+      "Breeding ground",
+      "Ecosystem",
+      "Biome"
     ],
-    "contextSentence": "Urban development encroaches upon vulnerable wetland biomes."
+    "contextSentence": "Coastal wetlands serve as an essential breeding ground for birds."
   },
   {
     "id": 117,
@@ -1805,11 +1755,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Animal (wild)",
     "highBandParaphrases": [
       "Wildlife",
-      "terrestrial fauna",
-      "feral creature",
-      "wild beast"
+      "Wild creatures",
+      "Native animals",
+      "Fauna"
     ],
-    "contextSentence": "Commercial poaching decimates endangered terrestrial fauna."
+    "contextSentence": "Commercial hunting imperils countless native wild creatures."
   },
   {
     "id": 118,
@@ -1818,13 +1768,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83c\udf31",
     "baseWord": "Plant / Tree",
     "highBandParaphrases": [
-      "Botanical specimen",
-      "vegetation",
-      "flora",
-      "canopy",
-      "greenery"
+      "Flora",
+      "Vegetation",
+      "Greenery",
+      "Foliage"
     ],
-    "contextSentence": "Native botanical specimens exhibit resilient drought tolerance."
+    "contextSentence": "Native vegetation survives drought conditions far better than crops."
   },
   {
     "id": 119,
@@ -1833,12 +1782,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83c\udf31",
     "baseWord": "Green / Eco",
     "highBandParaphrases": [
+      "Eco-friendly",
       "Sustainable",
-      "eco-friendly",
-      "carbon-neutral",
-      "ecologically sound"
+      "Clean",
+      "Environmentally sound"
     ],
-    "contextSentence": "Municipalities ought to mandate carbon-neutral building designs."
+    "contextSentence": "Eco-friendly homes use heat pumps and solar roof tiles."
   },
   {
     "id": 120,
@@ -1848,11 +1797,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Disaster",
     "highBandParaphrases": [
       "Catastrophe",
-      "calamity",
-      "meteorological emergency",
-      "devastation"
+      "Crisis",
+      "Calamity",
+      "Natural hazard"
     ],
-    "contextSentence": "Intense flash floods represent a severe meteorological calamity."
+    "contextSentence": "Earthquakes and typhoons represent devastating natural catastrophes."
   },
   {
     "id": 121,
@@ -1861,13 +1810,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udcbc",
     "baseWord": "Money",
     "highBandParaphrases": [
+      "Funds",
       "Capital",
-      "financial resources",
-      "funds",
-      "fiscal assets",
-      "currency"
+      "Finances",
+      "Cash"
     ],
-    "contextSentence": "Startups require access to substantial venture capital."
+    "contextSentence": "Young firms need adequate venture capital to develop prototypes."
   },
   {
     "id": 122,
@@ -1876,12 +1824,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udcbc",
     "baseWord": "Salary / Wage",
     "highBandParaphrases": [
-      "Financial remuneration",
-      "compensation package",
-      "earnings",
-      "stipend"
+      "Income",
+      "Earnings",
+      "Pay",
+      "Remuneration"
     ],
-    "contextSentence": "Attracting top talent necessitates competitive remuneration."
+    "contextSentence": "A fair monthly income motivates employees to stay with the firm."
   },
   {
     "id": 123,
@@ -1890,12 +1838,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udcbc",
     "baseWord": "Job / Work",
     "highBandParaphrases": [
+      "Employment",
       "Occupation",
-      "profession",
-      "vocational appointment",
-      "livelihood"
+      "Profession",
+      "Career"
     ],
-    "contextSentence": "Automated algorithms increasingly disrupt the accounting profession."
+    "contextSentence": "The medical profession requires years of dedicated study."
   },
   {
     "id": 124,
@@ -1904,12 +1852,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udcbc",
     "baseWord": "Company / Business",
     "highBandParaphrases": [
-      "Commercial enterprise",
-      "corporate entity",
-      "conglomerate",
-      "firm"
+      "Enterprise",
+      "Firm",
+      "Corporation",
+      "Business"
     ],
-    "contextSentence": "Multinational corporate entities wield immense market influence."
+    "contextSentence": "Multinational corporations have set net-zero emissions targets."
   },
   {
     "id": 125,
@@ -1918,13 +1866,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udcbc",
     "baseWord": "Buy / Purchase",
     "highBandParaphrases": [
+      "Purchase",
       "Acquire",
-      "procure",
-      "consume",
-      "invest in",
-      "obtain"
+      "Buy",
+      "Procure"
     ],
-    "contextSentence": "Households procure essential staples online."
+    "contextSentence": "More families now purchase everyday groceries on the web."
   },
   {
     "id": 126,
@@ -1934,12 +1881,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Sell",
     "highBandParaphrases": [
       "Market",
-      "retail",
-      "merchandise",
-      "vend",
-      "distribute"
+      "Distribute",
+      "Retail",
+      "Trade"
     ],
-    "contextSentence": "Producers distribute perishable commodities directly to consumers."
+    "contextSentence": "Small farms can market organic vegetables directly to neighbours."
   },
   {
     "id": 127,
@@ -1948,13 +1894,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udcbc",
     "baseWord": "Cost / Price",
     "highBandParaphrases": [
-      "Financial outlay",
-      "expenditure",
-      "tariff",
-      "overhead",
-      "expense"
+      "Expense",
+      "Charge",
+      "Outlay",
+      "Price"
     ],
-    "contextSentence": "High initial financial outlays deter adoption of heat pumps."
+    "contextSentence": "High initial equipment expenses can deter small firms from green tech."
   },
   {
     "id": 128,
@@ -1963,11 +1908,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udcbc",
     "baseWord": "Economy",
     "highBandParaphrases": [
-      "Macroeconomic framework",
-      "fiscal ecosystem",
-      "financial landscape"
+      "Economic system",
+      "Financial market",
+      "Commerce",
+      "Trade sector"
     ],
-    "contextSentence": "Diversification strengthens the national macroeconomic framework."
+    "contextSentence": "Tourism contributes billions of pounds to the national economic system."
   },
   {
     "id": 129,
@@ -1977,12 +1923,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Free (no cost)",
     "highBandParaphrases": [
       "Complimentary",
-      "cost-free",
-      "subsidised",
-      "state-funded",
-      "gratis"
+      "State-funded",
+      "Cost-free",
+      "Subsidised"
     ],
-    "contextSentence": "Basic healthcare should remain state-funded and accessible."
+    "contextSentence": "Basic medical checkups should remain state-funded for all."
   },
   {
     "id": 130,
@@ -1991,13 +1936,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udcbc",
     "baseWord": "Tax",
     "highBandParaphrases": [
-      "Fiscal levy",
-      "taxation duty",
-      "tariff",
-      "excise",
-      "municipal tribute"
+      "Levy",
+      "Duty",
+      "Tariff",
+      "Taxation"
     ],
-    "contextSentence": "Levying an excise duty on sugary beverages curbs consumption."
+    "contextSentence": "Placing a tax levy on sugary drinks encourages healthier choices."
   },
   {
     "id": 131,
@@ -2006,12 +1950,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udcbc",
     "baseWord": "Debt",
     "highBandParaphrases": [
-      "Financial liabilities",
-      "fiscal deficits",
-      "obligations",
-      "indebtedness"
+      "Borrowing",
+      "Loans",
+      "Deficit",
+      "Financial liability"
     ],
-    "contextSentence": "Escalating household indebtedness constrains national growth."
+    "contextSentence": "Heavy student debt can delay young adults from purchasing homes."
   },
   {
     "id": 132,
@@ -2020,12 +1964,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udcbc",
     "baseWord": "Profit",
     "highBandParaphrases": [
-      "Fiscal return",
-      "financial gain",
-      "net yield",
-      "revenue surplus"
+      "Financial gain",
+      "Earnings",
+      "Net income",
+      "Return"
     ],
-    "contextSentence": "Firms must balance revenue surpluses with environmental ethics."
+    "contextSentence": "Companies must balance financial gains with workplace ethics."
   },
   {
     "id": 133,
@@ -2035,10 +1979,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Trade",
     "highBandParaphrases": [
       "Commerce",
-      "bilateral mercantile exchange",
-      "export-import flows"
+      "Business dealings",
+      "Exchange",
+      "Export-import"
     ],
-    "contextSentence": "International mercantile exchange fosters geopolitical cooperation."
+    "contextSentence": "International commerce fosters diplomatic partnerships among nations."
   },
   {
     "id": 134,
@@ -2047,12 +1992,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udcbc",
     "baseWord": "Market",
     "highBandParaphrases": [
-      "Commercial arena",
-      "marketplace",
-      "economic sector",
-      "consumer base"
+      "Marketplace",
+      "Commercial sector",
+      "Consumer market",
+      "Trade arena"
     ],
-    "contextSentence": "Emerging economies capture a growing share of the global marketplace."
+    "contextSentence": "Electric cars are capturing a larger share of the auto marketplace."
   },
   {
     "id": 135,
@@ -2061,11 +2006,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udcbc",
     "baseWord": "Employment",
     "highBandParaphrases": [
-      "Workforce engagement",
-      "job creation",
-      "labour absorption"
+      "Job creation",
+      "Work opportunities",
+      "Staffing",
+      "Hiring"
     ],
-    "contextSentence": "Green technology stimulates substantial workforce engagement."
+    "contextSentence": "Expanding solar factories stimulates steady local job creation."
   },
   {
     "id": 136,
@@ -2075,10 +2021,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Unemployment",
     "highBandParaphrases": [
       "Joblessness",
-      "workforce redundancy",
-      "labour inactivity"
+      "Lack of jobs",
+      "Redundancy",
+      "Out of work"
     ],
-    "contextSentence": "Youth joblessness correlates with socio-economic unrest."
+    "contextSentence": "Youth joblessness contributes to economic instability in towns."
   },
   {
     "id": 137,
@@ -2088,11 +2035,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Opportunity",
     "highBandParaphrases": [
       "Prospect",
-      "avenue",
-      "viable opening",
-      "potential pathway"
+      "Possibility",
+      "Chance",
+      "Opening"
     ],
-    "contextSentence": "Vocational apprenticeships unlock lucrative career avenues."
+    "contextSentence": "Vocational apprenticeships unlock rewarding career prospects."
   },
   {
     "id": 138,
@@ -2101,11 +2048,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udcbc",
     "baseWord": "Industry",
     "highBandParaphrases": [
-      "Commercial sector",
-      "manufacturing domain",
-      "trade sphere"
+      "Manufacturing sector",
+      "Production field",
+      "Trade area",
+      "Commercial sector"
     ],
-    "contextSentence": "The pharmaceutical manufacturing sector requires rigorous oversight."
+    "contextSentence": "The renewable energy manufacturing sector is expanding swiftly."
   },
   {
     "id": 139,
@@ -2115,11 +2063,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Wealth",
     "highBandParaphrases": [
       "Affluence",
-      "prosperity",
-      "accumulated capital",
-      "fortune"
+      "Prosperity",
+      "Assets",
+      "Fortune"
     ],
-    "contextSentence": "Disproportionate concentration of affluence exacerbates societal divide."
+    "contextSentence": "Nations should reinvest national oil wealth into schools and roads."
   },
   {
     "id": 140,
@@ -2129,10 +2077,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Luxury",
     "highBandParaphrases": [
       "Extravagance",
-      "opulent amenity",
-      "premium indulgence"
+      "Splendour",
+      "Premium goods",
+      "Opulence"
     ],
-    "contextSentence": "Excessive spending on opulent goods highlights consumerist culture."
+    "contextSentence": "Spending on needless extravagance contrasts with poverty elsewhere."
   },
   {
     "id": 141,
@@ -2141,12 +2090,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\ude7a",
     "baseWord": "Health",
     "highBandParaphrases": [
-      "Physical condition",
-      "physiological well-being",
-      "vitality",
-      "health status"
+      "Well-being",
+      "Physical fitness",
+      "Health condition",
+      "Vitality"
     ],
-    "contextSentence": "Regular exercise enhances general physiological vitality."
+    "contextSentence": "A balanced diet contributes to sustained physical well-being."
   },
   {
     "id": 142,
@@ -2155,12 +2104,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\ude7a",
     "baseWord": "Sick / Illness",
     "highBandParaphrases": [
-      "Afflicted by ailments",
-      "pathology",
-      "chronic disorder",
-      "indisposition"
+      "Disease",
+      "Ailment",
+      "Disorder",
+      "Infection"
     ],
-    "contextSentence": "Sedentary workers are increasingly afflicted by chronic ailments."
+    "contextSentence": "Sedentary office jobs increase the likelihood of heart ailments."
   },
   {
     "id": 143,
@@ -2170,12 +2119,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Food / Diet",
     "highBandParaphrases": [
       "Nutrition",
-      "dietary intake",
-      "nourishment",
-      "sustenance",
-      "regimen"
+      "Daily diet",
+      "Meals",
+      "Nourishment"
     ],
-    "contextSentence": "Maintaining a well-balanced nutritional regimen prevents disease."
+    "contextSentence": "Wholesome nutrition is essential for cognitive performance in school."
   },
   {
     "id": 144,
@@ -2184,12 +2132,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\ude7a",
     "baseWord": "Exercise (v/n)",
     "highBandParaphrases": [
-      "Physical exertion",
-      "cardiovascular regimen",
-      "workout routine",
-      "train"
+      "Physical activity",
+      "Workout",
+      "Training",
+      "Keeping fit"
     ],
-    "contextSentence": "Engaging in moderate physical exertion bolsters mental acuity."
+    "contextSentence": "Regular physical activity strengthens muscles and lifts mood."
   },
   {
     "id": 145,
@@ -2198,12 +2146,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\ude7a",
     "baseWord": "Hospital / Doctor",
     "highBandParaphrases": [
-      "Medical institution",
-      "healthcare provider",
-      "physician",
-      "clinician"
+      "Medical clinic",
+      "Healthcare provider",
+      "Physician",
+      "Doctor"
     ],
-    "contextSentence": "Public medical institutions require modernisation."
+    "contextSentence": "Rural districts need modern medical clinics and qualified physicians."
   },
   {
     "id": 146,
@@ -2212,12 +2160,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\ude7a",
     "baseWord": "Medicine / Cure",
     "highBandParaphrases": [
-      "Pharmaceutical remedy",
-      "therapeutic intervention",
-      "antidote",
-      "treatment"
+      "Medication",
+      "Treatment",
+      "Remedy",
+      "Therapy"
     ],
-    "contextSentence": "Gene therapy represents a revolutionary therapeutic intervention."
+    "contextSentence": "Early antibiotic treatment prevents common bacterial infections."
   },
   {
     "id": 147,
@@ -2226,12 +2174,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\ude7a",
     "baseWord": "Stress / Tiredness",
     "highBandParaphrases": [
-      "Cognitive fatigue",
-      "burnout",
-      "psychological strain",
-      "exhaustion"
+      "Fatigue",
+      "Exhaustion",
+      "Tension",
+      "Burnout"
     ],
-    "contextSentence": "Long work hours precipitate chronic occupational burnout."
+    "contextSentence": "Chronic mental fatigue impairs daily concentration and memory."
   },
   {
     "id": 148,
@@ -2241,10 +2189,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Mental Health",
     "highBandParaphrases": [
       "Psychological well-being",
-      "psychiatric equilibrium",
-      "emotional health"
+      "Emotional health",
+      "Mental wellness",
+      "Peace of mind"
     ],
-    "contextSentence": "Workplaces must safeguard the psychological equilibrium of staff."
+    "contextSentence": "Schools should promote pupil emotional health alongside exam grades."
   },
   {
     "id": 149,
@@ -2253,12 +2202,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\ude7a",
     "baseWord": "Fat / Obesity",
     "highBandParaphrases": [
-      "Adiposity",
-      "severe overweightness",
-      "corpulence",
-      "excess body mass"
+      "Overweight",
+      "Excess weight",
+      "Obesity",
+      "Heavy build"
     ],
-    "contextSentence": "Childhood adiposity has evolved into a global public health crisis."
+    "contextSentence": "Childhood obesity has become a major global health priority."
   },
   {
     "id": 150,
@@ -2267,11 +2216,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\ude7a",
     "baseWord": "Lifespan / Age",
     "highBandParaphrases": [
+      "Life expectancy",
       "Longevity",
-      "life expectancy",
-      "biological survival span"
+      "Lifespan",
+      "Years of life"
     ],
-    "contextSentence": "Advances in oncology have dramatically enhanced human longevity."
+    "contextSentence": "Clean water and vaccines have dramatically prolonged average life expectancy."
   },
   {
     "id": 151,
@@ -2280,12 +2230,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\ude7a",
     "baseWord": "Habit",
     "highBandParaphrases": [
-      "Behavioral pattern",
-      "routine",
-      "practice",
-      "predisposition"
+      "Routine",
+      "Practice",
+      "Pattern",
+      "Custom"
     ],
-    "contextSentence": "Cultivating constructive study behavioral patterns early is vital."
+    "contextSentence": "Setting consistent sleep routines improves productivity next day."
   },
   {
     "id": 152,
@@ -2295,10 +2245,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Lifestyle",
     "highBandParaphrases": [
       "Way of living",
-      "daily conduct",
-      "standard of existence"
+      "Life pattern",
+      "Daily habits",
+      "Lifestyle"
     ],
-    "contextSentence": "A hyper-consumerist way of living strains global natural reserves."
+    "contextSentence": "A sedentary way of living raises blood pressure over time."
   },
   {
     "id": 153,
@@ -2308,11 +2259,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Pain",
     "highBandParaphrases": [
       "Discomfort",
-      "distress",
-      "agony",
-      "physical affliction"
+      "Ache",
+      "Soreness",
+      "Distress"
     ],
-    "contextSentence": "Physical therapy alleviates muscular discomfort without opioids."
+    "contextSentence": "Stretching exercises relieve lower back discomfort in office workers."
   },
   {
     "id": 154,
@@ -2322,10 +2273,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Addiction",
     "highBandParaphrases": [
       "Dependency",
-      "compulsive fixation",
-      "substance reliance"
+      "Heavy reliance",
+      "Compulsion",
+      "Craving"
     ],
-    "contextSentence": "Digital device dependency undermines deep concentration in students."
+    "contextSentence": "Mobile phone dependency disrupts normal face-to-face conversation."
   },
   {
     "id": 155,
@@ -2334,11 +2286,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\ude7a",
     "baseWord": "Fitness",
     "highBandParaphrases": [
-      "Physical stamina",
-      "cardiovascular robustness",
-      "conditioning"
+      "Stamina",
+      "Physical endurance",
+      "Good shape",
+      "Strength"
     ],
-    "contextSentence": "High-intensity training builds muscular and cardiovascular robustness."
+    "contextSentence": "Aerobic swimming builds cardiovascular stamina and joint flexibility."
   },
   {
     "id": 156,
@@ -2347,12 +2300,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\ude7a",
     "baseWord": "Recreation / Fun",
     "highBandParaphrases": [
-      "Leisure pursuit",
-      "amusement",
-      "diverting pastime",
-      "entertainment"
+      "Leisure",
+      "Pastime",
+      "Entertainment",
+      "Amusement"
     ],
-    "contextSentence": "Access to parks provides enriching leisure pursuits for urban families."
+    "contextSentence": "Public parks offer pleasant leisure areas for urban families."
   },
   {
     "id": 157,
@@ -2361,11 +2314,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\ude7a",
     "baseWord": "Sleep",
     "highBandParaphrases": [
+      "Rest",
+      "Slumber",
       "Nocturnal rest",
-      "slumber",
-      "circadian restoration"
+      "Sleep cycle"
     ],
-    "contextSentence": "Chronic deficit of nocturnal rest impairs cognitive decision-making."
+    "contextSentence": "Adequate nocturnal rest is vital for repairing muscle tissue."
   },
   {
     "id": 158,
@@ -2374,12 +2328,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\ude7a",
     "baseWord": "Clean / Hygiene",
     "highBandParaphrases": [
-      "Sanitary condition",
-      "sterilization",
-      "prophylactic hygiene",
-      "antiseptic"
+      "Sanitation",
+      "Cleanliness",
+      "Hygiene",
+      "Sterile conditions"
     ],
-    "contextSentence": "Ensuring rigorous sanitary standards halts microbial outbreaks."
+    "contextSentence": "Hand-washing sanitation stops the transmission of winter colds."
   },
   {
     "id": 159,
@@ -2388,12 +2342,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\ude7a",
     "baseWord": "Safety",
     "highBandParaphrases": [
+      "Protection",
       "Security",
-      "protection",
-      "welfare",
-      "hazard mitigation"
+      "Welfare",
+      "Precaution"
     ],
-    "contextSentence": "Aviation protocols place paramount emphasis on passenger welfare."
+    "contextSentence": "Seat belts provide critical protection during road collisions."
   },
   {
     "id": 160,
@@ -2403,11 +2357,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Treatment",
     "highBandParaphrases": [
       "Therapy",
-      "medical management",
-      "clinical protocol",
-      "rehabilitation"
+      "Medical care",
+      "Rehabilitation",
+      "Remedy"
     ],
-    "contextSentence": "Cognitive behavioural therapy is effective for mood disorders."
+    "contextSentence": "Physical therapy helps sports players recover from knee sprains."
   },
   {
     "id": 161,
@@ -2416,12 +2370,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\udde9",
     "baseWord": "Cause (n)",
     "highBandParaphrases": [
-      "Catalyst",
-      "root determinant",
-      "instigator",
-      "underlying origin"
+      "Root factor",
+      "Origin",
+      "Reason",
+      "Source"
     ],
-    "contextSentence": "Income disparity acts as the primary catalyst for crime."
+    "contextSentence": "Lack of sleep is often the root factor behind low morning focus."
   },
   {
     "id": 162,
@@ -2430,13 +2384,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\udde9",
     "baseWord": "Effect / Result",
     "highBandParaphrases": [
-      "Repercussion",
-      "consequence",
-      "outcome",
-      "aftermath",
-      "byproduct"
+      "Consequence",
+      "Outcome",
+      "Impact",
+      "Repercussion"
     ],
-    "contextSentence": "Economic sanctions yielded severe repercussions across the market."
+    "contextSentence": "The policy had an immediate positive consequence on local air quality."
   },
   {
     "id": 163,
@@ -2446,11 +2399,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Reason",
     "highBandParaphrases": [
       "Rationale",
-      "justification",
-      "underlying basis",
-      "motive"
+      "Motive",
+      "Justification",
+      "Explanation"
     ],
-    "contextSentence": "The underlying rationale behind the reform is fiscal transparency."
+    "contextSentence": "The main rationale for the new speed limit is road safety."
   },
   {
     "id": 164,
@@ -2459,13 +2412,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\udde9",
     "baseWord": "Consequence",
     "highBandParaphrases": [
-      "Ramification",
-      "fallout",
-      "aftermath",
-      "backwash",
-      "corollary"
+      "Outcome",
+      "Aftermath",
+      "Result",
+      "Effect"
     ],
-    "contextSentence": "Environmental negligence carries catastrophic ramifications."
+    "contextSentence": "Deforestation produces severe consequences for river water supplies."
   },
   {
     "id": 165,
@@ -2474,13 +2426,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\udde9",
     "baseWord": "Problem",
     "highBandParaphrases": [
-      "Predicament",
-      "dilemma",
-      "obstacle",
-      "conundrum",
-      "challenge"
+      "Issue",
+      "Challenge",
+      "Difficulty",
+      "Obstacle"
     ],
-    "contextSentence": "Urban waste disposal represents a perplexing municipal conundrum."
+    "contextSentence": "Affordable housing is a pressing issue across capital cities."
   },
   {
     "id": 166,
@@ -2490,11 +2441,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Solution",
     "highBandParaphrases": [
       "Remedy",
-      "countermeasure",
-      "panacea",
-      "corrective measure"
+      "Answer",
+      "Resolution",
+      "Countermeasure"
     ],
-    "contextSentence": "Renewable energy adoption constitutes a viable countermeasure."
+    "contextSentence": "Promoting bicycles is an effective remedy for urban congestion."
   },
   {
     "id": 167,
@@ -2503,13 +2454,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\udde9",
     "baseWord": "Danger",
     "highBandParaphrases": [
-      "Peril",
-      "threat",
-      "hazard",
-      "jeopardy",
-      "hazard"
+      "Risk",
+      "Hazard",
+      "Threat",
+      "Peril"
     ],
-    "contextSentence": "Cyber warfare places national infrastructure in grave jeopardy."
+    "contextSentence": "Reckless driving poses an unacceptable hazard to pedestrians."
   },
   {
     "id": 168,
@@ -2519,12 +2469,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Benefit",
     "highBandParaphrases": [
       "Advantage",
-      "dividend",
-      "asset",
-      "positive outcome",
-      "virtue"
+      "Gain",
+      "Positive aspect",
+      "Merit"
     ],
-    "contextSentence": "Investing in preschool education reaps substantial social dividends."
+    "contextSentence": "Early language exposure brings cognitive advantages throughout life."
   },
   {
     "id": 169,
@@ -2533,13 +2482,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\udde9",
     "baseWord": "Drawback",
     "highBandParaphrases": [
-      "Deficiency",
-      "disadvantage",
-      "vulnerability",
-      "shortfall",
-      "pitfall"
+      "Disadvantage",
+      "Downside",
+      "Flaw",
+      "Shortcoming"
     ],
-    "contextSentence": "A notable pitfall of remote employment is interpersonal isolation."
+    "contextSentence": "A key downside of working from home is feeling isolated."
   },
   {
     "id": 170,
@@ -2549,11 +2497,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Impact",
     "highBandParaphrases": [
       "Influence",
-      "impression",
-      "footprint",
-      "reverberation"
+      "Effect",
+      "Impression",
+      "Consequence"
     ],
-    "contextSentence": "Tourism leaves an undeniable ecological footprint on coral reefs."
+    "contextSentence": "Advertising exerts a strong influence on teenage eating habits."
   },
   {
     "id": 171,
@@ -2562,12 +2510,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\udde9",
     "baseWord": "Proof / Evidence",
     "highBandParaphrases": [
-      "Empirical validation",
-      "corroboration",
-      "substantiate data",
-      "proof"
+      "Evidence",
+      "Data",
+      "Documentation",
+      "Proof"
     ],
-    "contextSentence": "There is abundant empirical validation supporting early childhood bilingualism."
+    "contextSentence": "Scientific evidence supports the claim that mindfulness reduces stress."
   },
   {
     "id": 172,
@@ -2577,12 +2525,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Example",
     "highBandParaphrases": [
       "Illustration",
-      "exemplar",
-      "case in point",
-      "archetype",
-      "precedent"
+      "Instance",
+      "Case in point",
+      "Sample"
     ],
-    "contextSentence": "Singapore serves as a prime exemplar of integrated public transit."
+    "contextSentence": "Singapore is an impressive illustration of efficient public transport."
   },
   {
     "id": 173,
@@ -2591,12 +2538,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\udde9",
     "baseWord": "Factor",
     "highBandParaphrases": [
-      "Determinant",
-      "contributing element",
-      "variable",
-      "component"
+      "Element",
+      "Component",
+      "Aspect",
+      "Influence"
     ],
-    "contextSentence": "Poverty is a leading determinant of early school dropouts."
+    "contextSentence": "Diet is a deciding element in overall physical wellness."
   },
   {
     "id": 174,
@@ -2606,12 +2553,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Goal / Aim",
     "highBandParaphrases": [
       "Objective",
-      "aspiration",
-      "target",
-      "ambition",
-      "milestone"
+      "Target",
+      "Purpose",
+      "Ambition"
     ],
-    "contextSentence": "Achieving carbon neutrality by 2050 is a non-negotiable target."
+    "contextSentence": "Reducing carbon output by half is our primary environmental objective."
   },
   {
     "id": 175,
@@ -2620,12 +2566,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\udde9",
     "baseWord": "Measure / Step",
     "highBandParaphrases": [
-      "Initiative",
-      "course of action",
-      "strategic intervention",
-      "policy"
+      "Action",
+      "Step",
+      "Policy",
+      "Initiative"
     ],
-    "contextSentence": "State authorities must adopt stringent strategic interventions."
+    "contextSentence": "The council should take swift steps to repair potholed streets."
   },
   {
     "id": 176,
@@ -2634,13 +2580,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\udde9",
     "baseWord": "Advantage",
     "highBandParaphrases": [
-      "Competitive edge",
-      "merit",
-      "strength",
-      "asset",
-      "leverage"
+      "Benefit",
+      "Merit",
+      "Edge",
+      "Asset"
     ],
-    "contextSentence": "Fluency in several languages confers a distinct competitive edge."
+    "contextSentence": "Bilingual speakers enjoy an extra edge in international hospitality."
   },
   {
     "id": 177,
@@ -2649,12 +2594,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\udde9",
     "baseWord": "Disadvantage",
     "highBandParaphrases": [
+      "Drawback",
       "Handicap",
-      "liability",
-      "impediment",
-      "vulnerability"
+      "Downside",
+      "Weakness"
     ],
-    "contextSentence": "A lack of digital literacy proves a crippling handicap in today's job market."
+    "contextSentence": "Poor computer skills are a severe handicap in the modern office."
   },
   {
     "id": 178,
@@ -2664,11 +2609,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Situation",
     "highBandParaphrases": [
       "Circumstance",
-      "state of affairs",
-      "context",
-      "predicament"
+      "State of affairs",
+      "Condition",
+      "Context"
     ],
-    "contextSentence": "The prevailing state of affairs demands international mediation."
+    "contextSentence": "Rising inflation creates a difficult circumstance for young families."
   },
   {
     "id": 179,
@@ -2677,12 +2622,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\udde9",
     "baseWord": "Condition",
     "highBandParaphrases": [
-      "Stipulation",
-      "prerequisite",
-      "climate",
-      "status quo"
+      "Requirement",
+      "State",
+      "Prerequisite",
+      "Stipulation"
     ],
-    "contextSentence": "Economic stability is an indispensable prerequisite for foreign investment."
+    "contextSentence": "A valid visa is a strict prerequisite for international employment."
   },
   {
     "id": 180,
@@ -2691,12 +2636,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83e\udde9",
     "baseWord": "Outcome",
     "highBandParaphrases": [
-      "End result",
-      "fruition",
-      "ultimate payoff",
-      "resolution"
+      "Result",
+      "Conclusion",
+      "End product",
+      "Resolution"
     ],
-    "contextSentence": "The collaborative project reached a mutually advantageous resolution."
+    "contextSentence": "The negotiations led to a mutually beneficial resolution."
   },
   {
     "id": 181,
@@ -2706,12 +2651,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Also",
     "highBandParaphrases": [
       "Furthermore",
-      "moreover",
-      "in addition",
-      "additionally",
-      "along with this"
+      "Moreover",
+      "In addition",
+      "Additionally"
     ],
-    "contextSentence": "The tax cuts reduce poverty; furthermore, they stimulate investment."
+    "contextSentence": "Solar energy cuts bills; furthermore, it reduces home emissions."
   },
   {
     "id": 182,
@@ -2720,13 +2664,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udd17",
     "baseWord": "But / However",
     "highBandParaphrases": [
-      "Conversely",
-      "nevertheless",
-      "nonetheless",
-      "yet",
-      "by contrast"
+      "However",
+      "Nevertheless",
+      "Yet",
+      "On the other hand"
     ],
-    "contextSentence": "Tuition is high; nonetheless, university enrollment continues to grow."
+    "contextSentence": "Tuition fees are rising; however, degree applications remain high."
   },
   {
     "id": 183,
@@ -2735,12 +2678,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udd17",
     "baseWord": "Because",
     "highBandParaphrases": [
-      "Owing to",
-      "attributable to",
-      "on the grounds that",
-      "inasmuch as"
+      "Since",
+      "As",
+      "Due to",
+      "Owing to"
     ],
-    "contextSentence": "Species decline is directly attributable to anthropogenic habitat loss."
+    "contextSentence": "The flight was delayed owing to adverse weather on the runway."
   },
   {
     "id": 184,
@@ -2750,12 +2693,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "So / Therefore",
     "highBandParaphrases": [
       "Consequently",
-      "hence",
-      "accordingly",
-      "thus",
-      "as a corollary"
+      "Therefore",
+      "As a result",
+      "Thus"
     ],
-    "contextSentence": "The infrastructure deteriorated; consequently, transit delays mounted."
+    "contextSentence": "The road flooded; consequently, all bus routes were diverted."
   },
   {
     "id": 185,
@@ -2764,12 +2706,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udd17",
     "baseWord": "In conclusion",
     "highBandParaphrases": [
-      "To recapitulate",
-      "in the final analysis",
-      "to synthesise",
-      "in summary"
+      "To summarize",
+      "In summary",
+      "Overall",
+      "To conclude"
     ],
-    "contextSentence": "In the final analysis, environmental preservation must outweigh short-term profits."
+    "contextSentence": "In summary, governments must balance economic growth with green laws."
   },
   {
     "id": 186,
@@ -2778,11 +2720,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udd17",
     "baseWord": "For example",
     "highBandParaphrases": [
-      "To illustrate this point",
-      "as evidenced by",
-      "a case in point is"
+      "For instance",
+      "Such as",
+      "To illustrate",
+      "As an example"
     ],
-    "contextSentence": "To illustrate this point, renewable-powered public transit cuts smog."
+    "contextSentence": "Many European capitals, for instance Vienna, invest heavily in social housing."
   },
   {
     "id": 187,
@@ -2791,11 +2734,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udd17",
     "baseWord": "In contrast",
     "highBandParaphrases": [
+      "Unlike this",
       "On the contrary",
-      "on the flip side",
-      "diametrically opposed to"
+      "In comparison",
+      "Conversely"
     ],
-    "contextSentence": "Private cars waste energy; by stark contrast, subways are hyper-efficient."
+    "contextSentence": "Electric trains are clean; in contrast, diesel trucks pollute heavily."
   },
   {
     "id": 188,
@@ -2804,11 +2748,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udd17",
     "baseWord": "In addition",
     "highBandParaphrases": [
-      "Coupled with",
-      "alongside this",
-      "supplementary to this"
+      "Alongside this",
+      "As well as",
+      "Besides",
+      "Coupled with"
     ],
-    "contextSentence": "High salaries, coupled with stellar healthcare benefits, attract talent."
+    "contextSentence": "Good salaries, coupled with friendly culture, retain top workers."
   },
   {
     "id": 189,
@@ -2818,10 +2763,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "In fact / Actually",
     "highBandParaphrases": [
       "In reality",
-      "indeed",
-      "as a matter of empirical reality"
+      "Indeed",
+      "In truth",
+      "As a matter of fact"
     ],
-    "contextSentence": "Indeed, empirical data reinforces the necessity of early childhood care."
+    "contextSentence": "Indeed, practical experience often counts more than exam grades."
   },
   {
     "id": 190,
@@ -2830,11 +2776,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udd17",
     "baseWord": "Nowadays",
     "highBandParaphrases": [
-      "In the contemporary era",
-      "in recent times",
-      "at present"
+      "Today",
+      "In recent times",
+      "These days",
+      "At present"
     ],
-    "contextSentence": "In the contemporary era, automation reshapes white-collar employment."
+    "contextSentence": "At present, renewable energy powers over a third of national homes."
   },
   {
     "id": 191,
@@ -2843,12 +2790,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udd17",
     "baseWord": "Firstly",
     "highBandParaphrases": [
-      "In the first instance",
-      "primarily",
-      "initially",
-      "to commence with"
+      "First of all",
+      "To begin with",
+      "In the first place",
+      "Initially"
     ],
-    "contextSentence": "In the first instance, funding must be allocated toward teacher training."
+    "contextSentence": "First of all, schools should teach children basic budgeting skills."
   },
   {
     "id": 192,
@@ -2857,11 +2804,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udd17",
     "baseWord": "Secondly",
     "highBandParaphrases": [
-      "Subsequently",
-      "in the second place",
-      "furthermore"
+      "In the second place",
+      "Next",
+      "Furthermore",
+      "Additionally"
     ],
-    "contextSentence": "Subsequently, modern laboratories ought to be furnished."
+    "contextSentence": "In the second place, sports facilities in rural towns need grants."
   },
   {
     "id": 193,
@@ -2871,10 +2819,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Lastly",
     "highBandParaphrases": [
       "Finally",
-      "ultimately",
-      "in the closing analysis"
+      "Ultimately",
+      "In the end",
+      "Lastly"
     ],
-    "contextSentence": "Ultimately, ethical accountability must govern AI rollouts."
+    "contextSentence": "Finally, communities must take responsibility for local cleanliness."
   },
   {
     "id": 194,
@@ -2884,10 +2833,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Overall",
     "highBandParaphrases": [
       "On the whole",
-      "in broad terms",
-      "taking a holistic view"
+      "In general",
+      "Generally speaking",
+      "All in all"
     ],
-    "contextSentence": "Taking a holistic view, the graph delineates an upward trajectory."
+    "contextSentence": "On the whole, public satisfaction with the metro system increased."
   },
   {
     "id": 195,
@@ -2896,11 +2846,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udd17",
     "baseWord": "Although / Even if",
     "highBandParaphrases": [
-      "Notwithstanding the fact that",
-      "albeit",
-      "despite the reality that"
+      "Even though",
+      "While",
+      "Despite",
+      "Though"
     ],
-    "contextSentence": "The initiative advanced, notwithstanding the fact that resources were constrained."
+    "contextSentence": "Even though taxes rose slightly, public transit services improved."
   },
   {
     "id": 196,
@@ -2909,12 +2860,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udd17",
     "baseWord": "Similarly",
     "highBandParaphrases": [
-      "By the same token",
-      "likewise",
-      "in parallel",
-      "correspondingly"
+      "Likewise",
+      "In the same way",
+      "Equally",
+      "Correspondingly"
     ],
-    "contextSentence": "Schools teach ethics; by the same token, parents must model honesty."
+    "contextSentence": "Teachers teach respect; likewise, parents must demonstrate patience."
   },
   {
     "id": 197,
@@ -2924,11 +2875,11 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "baseWord": "Especially",
     "highBandParaphrases": [
       "Particularly",
-      "notably",
-      "predominantly",
-      "in particular"
+      "Notably",
+      "In particular",
+      "Above all"
     ],
-    "contextSentence": "The issue affects developing nations, predominantly in arid zones."
+    "contextSentence": "Air pollution affects everyone, particularly young children and the elderly."
   },
   {
     "id": 198,
@@ -2937,11 +2888,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udd17",
     "baseWord": "Naturally / Of course",
     "highBandParaphrases": [
-      "Inevitably",
-      "undeniably",
-      "as might be anticipated"
+      "Undeniably",
+      "As expected",
+      "Clearly",
+      "Inevitably"
     ],
-    "contextSentence": "Rapid migration inevitably increases municipal housing demand."
+    "contextSentence": "Undeniably, learning to code opens up diverse technical jobs."
   },
   {
     "id": 199,
@@ -2950,12 +2902,12 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udd17",
     "baseWord": "Clearly / Obviously",
     "highBandParaphrases": [
-      "Manifestly",
-      "unmistakably",
-      "patently",
-      "self-evidently"
+      "Evidently",
+      "Apparent",
+      "Plainly",
+      "Clearly"
     ],
-    "contextSentence": "The data patently proves that carbon taxes decrease industrial emissions."
+    "contextSentence": "Evidently, regular revision helps pupils remember difficult formulas."
   },
   {
     "id": 200,
@@ -2964,40 +2916,59 @@ export const PARAPHRASE_LEXICON_ITEMS: ParaphraseLexiconItem[] = [
     "categoryIcon": "\ud83d\udd17",
     "baseWord": "Above all",
     "highBandParaphrases": [
-      "Most crucially",
-      "pre-eminently",
-      "paramount among these"
+      "Most importantly",
+      "Primarily",
+      "Chiefly",
+      "Mainly"
     ],
-    "contextSentence": "Paramount among these considerations is the preservation of public health."
+    "contextSentence": "Most importantly, pupils must feel safe and valued in the classroom."
   }
 ];
 
 export const PARAPHRASE_GOLDEN_RULES = [
   {
-    number: 1,
-    title: "Avoid Blind Synonym-Hunting",
-    summary: "Never swap a word unless you know the whole phrase's natural academic collocation.",
-    examples: [
-      { label: "Unnatural Swap", text: "Address an inquiry (awkward)" },
-      { label: "Natural Band 8+ Collocation", text: "Address an issue / Precipitate a decline / Derive benefits" }
+    "number": 1,
+    "title": "Never Force Obscure or Rare Synonyms",
+    "summary": "Examiners immediately penalise unnatural synonym substitution. Using natural, high-frequency academic words (e.g. 'crucial', 'vital', 'essential') produces accurate, Band 8.0+ writing.",
+    "examples": [
+      {
+        "label": "Over-Complicated (Awkward)",
+        "text": "The government must thwart the iniquitous conundrum of adiposity."
+      },
+      {
+        "label": "Natural & Precise (Band 8.5+)",
+        "text": "The government must address the growing challenge of childhood obesity."
+      }
     ]
   },
   {
-    number: 2,
-    title: "Transform Sentence Architecture (Not Just Words)",
-    summary: "High-band writers combine lexical upgrade with syntactic restructuring (e.g. active to passive or nominalization).",
-    examples: [
-      { label: "Band 6.0 (Simple Repetitive)", text: "Because people use too many cars, cities are polluted." },
-      { label: "Band 8.5+ (Syntactic Transformation)", text: "The ubiquitous reliance on private automobiles has precipitated severe atmospheric degradation across major metropolises." }
+    "number": 2,
+    "title": "Change Word Form (Syntactic Transformation)",
+    "summary": "Instead of only searching for synonyms, change the grammatical class of the word (Verb \u2794 Noun, Adjective \u2794 Adverb). This demonstrates advanced grammatical range.",
+    "examples": [
+      {
+        "label": "Base Sentence",
+        "text": "The population increased significantly between 2010 and 2020."
+      },
+      {
+        "label": "Grammar Transformation",
+        "text": "There was a significant increase in the population between 2010 and 2020."
+      }
     ]
   },
   {
-    number: 3,
-    title: "Vary Discourse Markers & Transitions",
-    summary: "Never rely on the same transition repeatedly (e.g. using 'Furthermore' 4 times in one Task 2 essay).",
-    examples: [
-      { label: "Repetitive Pattern", text: "Furthermore... Furthermore... Furthermore..." },
-      { label: "Band 8.5+ Varied Chain", text: "Coupled with this -> Additionally -> Along with this -> Furthermore" }
+    "number": 3,
+    "title": "Use Natural Cambridge Collocations",
+    "summary": "Synonyms are only effective if they pair naturally with neighbouring words. Always memorize words in their natural collocations (e.g. 'profound impact', 'rapid surge', 'vital role').",
+    "examples": [
+      {
+        "label": "Weak Collocation",
+        "text": "Tourism makes big money for the local economy."
+      },
+      {
+        "label": "Strong Collocation (Band 8.5+)",
+        "text": "Tourism generates substantial revenue for the local economy."
+      }
     ]
   }
 ];
