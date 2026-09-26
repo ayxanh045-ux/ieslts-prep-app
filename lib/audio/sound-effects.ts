@@ -1,14 +1,39 @@
-// Web Audio API Sound Synthesizer & Web Speech Engine
-// Zero external mp3 dependencies — works instantly offline & in all modern browsers
+// Web Audio API Sound Synthesizer & Hybrid High-Fidelity Human TTS Engine
+// Uses studio-grade realistic human voice audio with intelligent Web Speech API fallback
 
 class SoundEngine {
   private ctx: AudioContext | null = null;
   private soundEnabled: boolean = true;
+  private currentAudio: HTMLAudioElement | null = null;
+  private voices: SpeechSynthesisVoice[] = [];
+  private voicesLoaded: boolean = false;
+
+  constructor() {
+    this.initVoices();
+  }
+
+  private initVoices(): void {
+    if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
+
+    const load = () => {
+      this.voices = window.speechSynthesis.getVoices();
+      if (this.voices.length > 0) {
+        this.voicesLoaded = true;
+      }
+    };
+
+    load();
+    if (typeof window.speechSynthesis.onvoiceschanged !== "undefined") {
+      window.speechSynthesis.onvoiceschanged = load;
+    }
+  }
 
   private getContext(): AudioContext | null {
     if (typeof window === "undefined") return null;
     if (!this.ctx) {
-      const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      const AudioCtx =
+        window.AudioContext ||
+        (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
       if (AudioCtx) {
         this.ctx = new AudioCtx();
       }
@@ -21,6 +46,9 @@ class SoundEngine {
 
   public setEnabled(enabled: boolean) {
     this.soundEnabled = enabled;
+    if (!enabled) {
+      this.stopSpeaking();
+    }
   }
 
   public isEnabled(): boolean {
@@ -87,12 +115,12 @@ class SoundEngine {
 
     const now = ctx.currentTime;
     const melody = [
-      { f: 523.25, t: 0, d: 0.12 },      // C5
-      { f: 659.25, t: 0.12, d: 0.12 },   // E5
-      { f: 783.99, t: 0.24, d: 0.12 },   // G5
-      { f: 1046.50, t: 0.36, d: 0.35 },  // C6 (hold)
-      { f: 880.00, t: 0.50, d: 0.15 },   // A5
-      { f: 1046.50, t: 0.65, d: 0.5 },   // C6
+      { f: 523.25, t: 0, d: 0.12 }, // C5
+      { f: 659.25, t: 0.12, d: 0.12 }, // E5
+      { f: 783.99, t: 0.24, d: 0.12 }, // G5
+      { f: 1046.5, t: 0.36, d: 0.35 }, // C6 (hold)
+      { f: 880.0, t: 0.5, d: 0.15 }, // A5
+      { f: 1046.5, t: 0.65, d: 0.5 }, // C6
     ];
 
     melody.forEach(({ f, t, d }) => {
@@ -138,48 +166,198 @@ class SoundEngine {
     osc.stop(now + 0.05);
   }
 
-  /** Speak text using authentic British/Australian accents if available */
+  /**
+   * Preload human audio into browser cache for zero-latency instant playback
+   */
+  public preload(
+    text: string,
+    accent: "British" | "Australian" | "American" | "North American" = "British"
+  ): void {
+    if (typeof window === "undefined" || !text.trim()) return;
+    const cleanText = text
+      .replace(/[*_#`[\]()]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    let lang = "en-GB";
+    if (accent === "Australian") lang = "en-AU";
+    if (accent === "American" || accent === "North American") lang = "en-US";
+
+    const audioUrl = `/api/tts?text=${encodeURIComponent(cleanText)}&lang=${lang}`;
+    const preloader = new Audio();
+    preloader.preload = "auto";
+    preloader.src = audioUrl;
+  }
+
+  /**
+   * Speak text using realistic studio human voice audio with natural intonation.
+   * If network is unavailable, falls back to the highest quality system neural voice.
+   */
   public speak(
     text: string,
     accent: "British" | "Australian" | "American" | "North American" = "British",
     onEnd?: () => void
   ): void {
-    if (typeof window === "undefined" || !("speechSynthesis" in window)) {
-      if (onEnd) onEnd();
+    if (typeof window === "undefined") {
+      onEnd?.();
       return;
     }
 
-    window.speechSynthesis.cancel(); // Cancel any ongoing speech
+    // Always stop previous audio / speech
+    this.stopSpeaking();
+
+    if (!this.soundEnabled || !text.trim()) {
+      onEnd?.();
+      return;
+    }
+
+    const cleanText = text
+      .replace(/[*_#`[\]()]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    let lang = "en-GB";
+    if (accent === "Australian") lang = "en-AU";
+    if (accent === "American" || accent === "North American") lang = "en-US";
+
+    const audioUrl = `/api/tts?text=${encodeURIComponent(cleanText)}&lang=${lang}`;
+
+    const audio = new Audio(audioUrl);
+    this.currentAudio = audio;
+
+    let finished = false;
+    const handleFinish = () => {
+      if (!finished) {
+        finished = true;
+        if (this.currentAudio === audio) {
+          this.currentAudio = null;
+        }
+        onEnd?.();
+      }
+    };
+
+    audio.onended = handleFinish;
+
+    // In case network fails or blocked, fallback gracefully to Enhanced Web Speech API
+    audio.onerror = () => {
+      if (this.currentAudio === audio) {
+        this.speakWithWebSpeech(cleanText, accent, handleFinish);
+      }
+    };
+
+    audio.play().catch(() => {
+      if (this.currentAudio === audio) {
+        this.speakWithWebSpeech(cleanText, accent, handleFinish);
+      }
+    });
+  }
+
+  /**
+   * Fallback Web Speech Engine with priority ranking for human/neural voices
+   */
+  private speakWithWebSpeech(
+    text: string,
+    accent: "British" | "Australian" | "American" | "North American",
+    onEnd?: () => void
+  ): void {
+    if (typeof window === "undefined" || !("speechSynthesis" in window)) {
+      onEnd?.();
+      return;
+    }
+
+    window.speechSynthesis.cancel();
 
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = 0.95; // Natural Cambridge exam pace
+    // 0.90 provides clear, deliberate articulation for vocabulary learners
+    utterance.rate = 0.9;
     utterance.pitch = 1.0;
 
-    const voices = window.speechSynthesis.getVoices();
     let targetLang = "en-GB";
     if (accent === "Australian") targetLang = "en-AU";
     if (accent === "American" || accent === "North American") targetLang = "en-US";
 
+    const availableVoices =
+      this.voices.length > 0 ? this.voices : window.speechSynthesis.getVoices();
 
-    const matchedVoice = voices.find(
-      (v) => v.lang.includes(targetLang) || (accent === "British" && v.name.toLowerCase().includes("british"))
-    );
+    const bestVoice = this.pickBestVoice(availableVoices, targetLang, accent);
 
-    if (matchedVoice) {
-      utterance.voice = matchedVoice;
+    if (bestVoice) {
+      utterance.voice = bestVoice;
     } else {
       utterance.lang = targetLang;
     }
 
-    if (onEnd) {
-      utterance.onend = () => onEnd();
-      utterance.onerror = () => onEnd();
-    }
+    utterance.onend = () => onEnd?.();
+    utterance.onerror = () => onEnd?.();
 
     window.speechSynthesis.speak(utterance);
   }
 
+  /**
+   * Selects highest-scoring natural / neural voice instead of legacy robotic voices
+   */
+  private pickBestVoice(
+    voices: SpeechSynthesisVoice[],
+    targetLang: string,
+    accent: string
+  ): SpeechSynthesisVoice | null {
+    if (!voices || voices.length === 0) return null;
+
+    let topVoice: SpeechSynthesisVoice | null = null;
+    let maxScore = -999;
+
+    for (const v of voices) {
+      let score = 0;
+      const vLang = v.lang.toLowerCase().replace("_", "-");
+      const vName = v.name.toLowerCase();
+      const target = targetLang.toLowerCase();
+
+      // Language exact match
+      if (vLang === target) score += 60;
+      else if (vLang.startsWith(target.split("-")[0])) score += 25;
+
+      // High-grade natural / neural voices
+      if (vName.includes("natural")) score += 45;
+      if (vName.includes("neural")) score += 45;
+      if (vName.includes("enhanced")) score += 40;
+      if (vName.includes("premium")) score += 40;
+      if (vName.includes("online")) score += 30;
+      if (vName.includes("google")) score += 35;
+
+      // British preferred native speakers
+      if (accent === "British") {
+        if (vName.includes("sonia") || vName.includes("ryan") || vName.includes("libby"))
+          score += 35;
+        if (
+          vName.includes("daniel") ||
+          vName.includes("oliver") ||
+          vName.includes("serena") ||
+          vName.includes("kate") ||
+          vName.includes("martha")
+        )
+          score += 30;
+        if (vName.includes("uk") || vName.includes("british")) score += 20;
+      }
+
+      // Penalize legacy robotic / compact voices
+      if (vName.includes("compact")) score -= 25;
+      if (vName.includes("espeak")) score -= 40;
+
+      if (score > maxScore) {
+        maxScore = score;
+        topVoice = v;
+      }
+    }
+
+    return topVoice;
+  }
+
   public stopSpeaking(): void {
+    if (this.currentAudio) {
+      this.currentAudio.pause();
+      this.currentAudio.currentTime = 0;
+      this.currentAudio = null;
+    }
     if (typeof window !== "undefined" && "speechSynthesis" in window) {
       window.speechSynthesis.cancel();
     }
